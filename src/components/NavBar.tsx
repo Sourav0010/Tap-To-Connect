@@ -1,16 +1,17 @@
 'use client';
 import React from 'react';
 import { Button } from './ui/button';
-import { useSession } from 'next-auth/react';
+import { signOut, useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 
 const NavBar = () => {
    const { data: session } = useSession();
    const router = useRouter();
-   function handleClick(session: any) {
+   async function handleClick(session: any) {
       console.log('clicked');
       if (session) {
+         await signOut();
       } else {
          router.push('/sign-up');
       }

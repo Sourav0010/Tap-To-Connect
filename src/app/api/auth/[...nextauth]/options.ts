@@ -32,32 +32,34 @@ export const authOptions: NextAuthOptions = {
          },
       }),
    ],
-
-   session: {
-      strategy: 'jwt',
-   },
-   secret: process.env.SECRET,
-   pages: {
-      signIn: '/sign-in',
-   },
    callbacks: {
       async jwt({ token, user }) {
          if (user) {
             token._id = user._id?.toString();
             token.isVerified = user.isVerified;
             token.username = user.username;
-            token.email = user.email;
+            token.about = user.about;
+            token.profilePic = user.profilePic;
          }
          return token;
       },
       async session({ session, token }) {
          if (token) {
-            session._id = token._id;
-            session.isVerified = token.isVerified;
-            session.username = token.username;
-            session.email = token.email as string;
+            session.user._id = token._id;
+            session.user.isVerified = token.isVerified;
+            session.user.username = token.username;
+            session.user.name = token.username;
+            session.user.about = token.about;
+            session.user.image = token.profilePic;
          }
          return session;
       },
+   },
+   session: {
+      strategy: 'jwt',
+   },
+   secret: process.env.NEXTAUTH_SECRET,
+   pages: {
+      signIn: '/sign-in',
    },
 };
