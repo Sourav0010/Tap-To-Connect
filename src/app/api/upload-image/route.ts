@@ -1,4 +1,6 @@
+import User from '@/model/User.model';
 import { v2 as cloudinary } from 'cloudinary';
+import { useSession } from 'next-auth/react';
 
 cloudinary.config({
    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -13,32 +15,42 @@ interface CloudinaryUpoloadResult {
 
 export async function POST(req: Request, res: Response) {
    const formData = await req.formData();
-   const file = (formData.get('image') as File) || null;
-   if (!file) {
-      return Response.json({ error: 'No file uploaded' }, { status: 400 });
-   }
-   const arrayBuffer = await file.arrayBuffer();
-   const buffer = Buffer.from(arrayBuffer);
 
-   const result = await new Promise<CloudinaryUpoloadResult>(
-      (resolve, reject) => {
-         cloudinary.uploader
-            .upload_stream({ resource_type: 'image' }, (error, result) => {
-               if (error) {
-                  reject(error);
-               } else {
-                  resolve(result as CloudinaryUpoloadResult);
-               }
-            })
-            .end(buffer);
+   try {
+      const file = (formData.get('profilePic') as File) || null;
+      if (!file) {
+         return Response.json({ error: 'No file uploaded' }, { status: 400 });
       }
-   );
 
-   return Response.json(
-      {
-         url: result.secure_url,
-         public_id: result.public_id,
-      },
-      { status: 200 }
-   );
+      const arrayBuffer = await file.arrayBuffer();
+
+      const buffer = Buffer.from(arrayBuffer);
+
+      const result = await new Promise<CloudinaryUpoloadResult>(
+         (resolve, reject) => {
+            cloudinary.uploader
+               .upload_stream({ resource_type: 'image' }, (error, result) => {
+                  if (error) {
+                     reject(error);
+                  } else {
+                     resolve(result as CloudinaryUpoloadResult);
+                  }
+               })
+               .end(buffer);
+         }
+      );
+
+      return Response.json(
+         {
+            url: result.secure_url,
+            public_id: result.public_id,
+         },
+         { status: 200 }
+      );
+   } catch (error) {
+      return Response.json(
+         { message: 'Failed to upload image', success: false },
+         { status: 500 }
+      );
+   }
 }

@@ -4,8 +4,10 @@ import { useParams } from 'next/navigation';
 import React, { useEffect } from 'react';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import Link from 'next/link';
+
 import { User } from 'next-auth';
+import { Button } from '@/components/ui/button';
+import Link from 'next/link';
 const page = () => {
    const { username } = useParams();
    const [user, setUser] = React.useState({} as User);
@@ -16,6 +18,7 @@ const page = () => {
       try {
          const response = await axios.post('/api/get-user', { username });
          setUser(response.data.data);
+         console.log(response.data.data);
       } catch (error) {
          throw error;
       } finally {
@@ -48,6 +51,13 @@ const page = () => {
             </div>
             <h2>{user?.username || ''}</h2>
             <p>{user?.about || ''}</p>
+            <div className='flex gap-2 flex-col'>
+               {user?.socialLinks?.map(({ value, _id }, index) => (
+                  <Link href={value} key={_id} target='_blank'>
+                     <Button key={_id}>{`Social Link ${index + 1}`}</Button>
+                  </Link>
+               ))}
+            </div>
          </div>
       </div>
    ) : (

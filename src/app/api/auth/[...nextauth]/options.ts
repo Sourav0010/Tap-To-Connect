@@ -40,6 +40,7 @@ export const authOptions: NextAuthOptions = {
             token.username = user.username;
             token.about = user.about;
             token.profilePic = user.profilePic;
+            token.socialLinks = user.socialLinks;
          }
          return token;
       },
@@ -50,7 +51,8 @@ export const authOptions: NextAuthOptions = {
             session.user.username = token.username;
             session.user.name = token.username;
             session.user.about = token.about;
-            session.user.image = token.profilePic;
+            session.user.profilePic = token.profilePic;
+            session.user.socialLinks = token.socialLinks;
          }
          return session;
       },

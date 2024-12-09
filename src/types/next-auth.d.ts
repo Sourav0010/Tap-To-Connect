@@ -9,6 +9,7 @@ declare module 'next-auth' {
          username?: string;
          about?: string;
          profilePic?: string;
+         socialLinks?: [{ value: string }];
       } & DefaultSession['user'];
    }
 
@@ -18,6 +19,7 @@ declare module 'next-auth' {
       username?: string;
       about?: string;
       profilePic?: string;
+      socialLinks?: [{ value: string }];
    }
 }
 
@@ -28,5 +30,6 @@ declare module 'next-auth/jwt' {
       username?: string;
       about?: string;
       profilePic?: string;
+      socialLinks?: [{ value: string }];
    }
 }

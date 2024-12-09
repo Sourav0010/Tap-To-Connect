@@ -9,7 +9,6 @@ const NavBar = () => {
    const { data: session } = useSession();
    const router = useRouter();
    async function handleClick(session: any) {
-      console.log('clicked');
       if (session) {
          await signOut();
       } else {

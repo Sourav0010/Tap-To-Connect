@@ -8,6 +8,7 @@ export interface User extends Document {
    profilePic: string;
    isVerified: boolean;
    otp: string;
+   socialLinks: [{ value: string }];
 }
 
 const userSchema = new Schema<User>({
@@ -47,6 +48,10 @@ const userSchema = new Schema<User>({
    otp: {
       type: String,
       required: true,
+   },
+   socialLinks: {
+      type: [{ value: String }],
+      default: [{ value: '' }],
    },
 });
 
