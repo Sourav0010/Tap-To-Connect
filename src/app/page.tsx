@@ -2,45 +2,115 @@
 
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import {
-   Accordion,
-   AccordionContent,
-   AccordionItem,
-   AccordionTrigger,
-} from '@/components/ui/accordion';
+
 import { Separator } from '@/components/ui/separator';
+import {
+   Carousel,
+   CarouselContent,
+   CarouselItem,
+} from '@/components/ui/carousel';
+
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+
+import {
+   Card,
+   CardContent,
+   CardDescription,
+   CardHeader,
+   CardTitle,
+} from '@/components/ui/card';
+import Autoplay from 'embla-carousel-autoplay';
 
 export default function Home() {
-   const accordians = [
+   const testimonials = [
       {
-         id: 1,
-         title: 'Is it styled?',
-         content:
-            "Yes. It comes with default styles that match the other components' aesthetic.",
+         name: 'John Doe',
+         title: 'CEO',
+         image: 'https://images.unsplash.com/photo-1499714608240-22fc6ad53fb2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=76&q=80',
+         description:
+            'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae debitis laborum modi, quas quam quia consequatur officia rem voluptas accusantium dicta.',
       },
       {
-         id: 2,
-         title: 'Can I customize the styles?',
-         content:
-            'Yes, you can customize the styles using Tailwind, CSS, or other styling methods.',
+         name: 'John Doe',
+         title: 'CEO',
+         image: 'https://images.unsplash.com/photo-1499714608240-22fc6ad53fb2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=76&q=80',
+         description:
+            'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae debitis laborum modi, quas quam quia consequatur officia rem voluptas accusantium dicta.',
       },
       {
-         id: 3,
-         title: 'Is it responsive?',
-         content:
-            'Yes, the components are fully responsive and adapt to different screen sizes.',
+         name: 'John Doe',
+         title: 'CEO',
+         image: 'https://images.unsplash.com/photo-1499714608240-22fc6ad53fb2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=76&q=80',
+         description:
+            'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae debitis laborum modi, quas quam quia consequatur officia rem voluptas accusantium dicta.',
       },
       {
-         id: 4,
-         title: 'Does it support dark mode?',
-         content:
-            'Yes, it has built-in support for dark mode and adapts based on system preferences.',
+         name: 'John Doe',
+         title: 'CEO',
+         image: 'https://images.unsplash.com/photo-1499714608240-22fc6ad53fb2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=76&q=80',
+         description:
+            'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae debitis laborum modi, quas quam quia consequatur officia rem voluptas accusantium dicta.',
       },
       {
-         id: 5,
-         title: 'Is it accessible?',
-         content:
-            'Yes, the components follow accessibility best practices to ensure usability for all users.',
+         name: 'John Doe',
+         title: 'CEO',
+         image: 'https://images.unsplash.com/photo-1499714608240-22fc6ad53fb2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=76&q=80',
+         description:
+            'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae debitis laborum modi, quas quam quia consequatur officia rem voluptas accusantium dicta.',
+      },
+      {
+         name: 'John Doe',
+         title: 'CEO',
+         image: 'https://images.unsplash.com/photo-1499714608240-22fc6ad53fb2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=76&q=80',
+         description:
+            'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae debitis laborum modi, quas quam quia consequatur officia rem voluptas accusantium dicta.',
+      },
+      {
+         name: 'John Doe',
+         title: 'CEO',
+         image: 'https://images.unsplash.com/photo-1499714608240-22fc6ad53fb2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=76&q=80',
+         description:
+            'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae debitis laborum modi, quas quam quia consequatur officia rem voluptas accusantium dicta.',
+      },
+      {
+         name: 'John Doe',
+         title: 'CEO',
+         image: 'https://images.unsplash.com/photo-1499714608240-22fc6ad53fb2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=76&q=80',
+         description:
+            'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae debitis laborum modi, quas quam quia consequatur officia rem voluptas accusantium dicta.',
+      },
+   ];
+
+   const teamMembers: any = [
+      {
+         image: 'https://unsplash.com/photos/ILip77SbmOE/download?ixid=M3wxMjA3fDB8MXxhbGx8fHx8fHx8fHwxNzMzOTk3MTkyfA&auto=format&fit=crop&w=76&q=80',
+         name: 'George Harris',
+         title: 'DevOps Engineer',
+      },
+      {
+         image: 'https://unsplash.com/photos/ILip77SbmOE/download?ixid=M3wxMjA3fDB8MXxhbGx8fHx8fHx8fHwxNzMzOTk3MTkyfA&auto=format&fit=crop&w=76&q=80',
+         name: 'Diana Evans',
+         title: 'Data Analyst',
+      },
+      {
+         image: 'https://unsplash.com/photos/ILip77SbmOE/download?ixid=M3wxMjA3fDB8MXxhbGx8fHx8fHx8fHwxNzMzOTk3MTkyfA&auto=format&fit=crop&w=76&q=80',
+         name: 'Charlie Davis',
+         title: 'Data Analyst',
+      },
+      {
+         image: 'https://unsplash.com/photos/ILip77SbmOE/download?ixid=M3wxMjA3fDB8MXxhbGx8fHx8fHx8fHwxNzMzOTk3MTkyfA&auto=format&fit=crop&w=76&q=80',
+         name: 'Ethan Foster',
+         title: 'Data Analyst',
+      },
+      {
+         image: 'https://unsplash.com/photos/ILip77SbmOE/download?ixid=M3wxMjA3fDB8MXxhbGx8fHx8fHx8fHwxNzMzOTk3MTkyfA&auto=format&fit=crop&w=76&q=80',
+         name: 'Ethan Foster',
+         title: 'Product Manager',
+      },
+      {
+         image: 'https://images.unsplash.com/photo-1489980557514-251d61e3eeb6?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+         name: 'Ethan Foster',
+         title: 'Full Stack Developer',
       },
    ];
    return (
@@ -53,38 +123,61 @@ export default function Home() {
                   <Button>Create Account</Button>
                </Link>
             </div>
-            <Separator className='my-4' />
+            <Separator className='my-10' />
             <div>
-               <h1 className='text-4xl my-5 font-bold'>FAQ's</h1>
+               <h1 className='text-4xl my-5 font-bold'>Our Testimonials</h1>
             </div>
-            <div className='flex items-center justify-center gap-10'>
-               <div className='w-1/2'>
-                  <Accordion type='single' collapsible className='w-full'>
-                     {accordians.map((accordian) => (
-                        <AccordionItem
-                           key={accordian.id}
-                           value={accordian.id.toString()}
-                        >
-                           <AccordionTrigger key={accordian.id}>
-                              {accordian.title}
-                           </AccordionTrigger>
-                           <AccordionContent
-                              key={accordian.id}
-                              className='space-y-1 w-64'
-                           >
-                              {accordian.content}
-                           </AccordionContent>
-                        </AccordionItem>
+            <div>
+               <Carousel
+                  className='w-full max-w-6xl h-1/2'
+                  plugins={[Autoplay({ delay: 3000 })]}
+               >
+                  <CarouselContent>
+                     {testimonials.map((value, index) => (
+                        <CarouselItem className='basis-1/3 w-full' key={index}>
+                           <div className='p-1'>
+                              <Card>
+                                 <CardHeader>
+                                    <Avatar>
+                                       <AvatarImage
+                                          src={value.image}
+                                          alt='@shadcn'
+                                       />
+                                       <AvatarFallback>CN</AvatarFallback>
+                                    </Avatar>
+                                    <CardTitle>{value.name}</CardTitle>
+                                    <CardDescription>
+                                       {value.description}
+                                    </CardDescription>
+                                 </CardHeader>
+                              </Card>
+                           </div>
+                        </CarouselItem>
                      ))}
-                  </Accordion>
-               </div>
-               <div className='w-64 object-cover rounded-lg overflow-hidden  w-1/2'>
-                  <img
-                     src='https://images.pexels.com/photos/4144179/pexels-photo-4144179.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
-                     alt='Metaverse'
-                  />
+                  </CarouselContent>
+               </Carousel>
+            </div>
+            <Separator className='my-10' />
+            <div>
+               <h1 className='text-4xl my-5 font-bold'>Our Team</h1>
+            </div>
+            <div className='w-full max-w-6xl'>
+               <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
+                  {teamMembers.map((value: any, index: number) => (
+                     <Card key={index}>
+                        <CardHeader>
+                           <Avatar>
+                              <AvatarImage src={value.image} alt='@shadcn' />
+                              <AvatarFallback>CN</AvatarFallback>
+                           </Avatar>
+                           <CardTitle>{value.name}</CardTitle>
+                           <CardDescription>{value.title}</CardDescription>
+                        </CardHeader>
+                     </Card>
+                  ))}
                </div>
             </div>
+            <Separator />
          </main>
       </>
    );

@@ -20,11 +20,20 @@ import { DashboardSchema } from '@/schemas/DashboardSchema';
 import { z } from 'zod';
 import { useToast } from '@/hooks/use-toast';
 import axios from 'axios';
-import { Loader2 } from 'lucide-react';
-import { set } from 'mongoose';
+import { Files, Loader2 } from 'lucide-react';
+import {
+   Select,
+   SelectContent,
+   SelectGroup,
+   SelectItem,
+   SelectLabel,
+   SelectTrigger,
+   SelectValue,
+} from '@/components/ui/select';
 
 const page = () => {
    const [user, setUser] = React.useState({
+      fullname: '',
       username: '',
       about: '',
       socialLinks: [],
@@ -35,6 +44,7 @@ const page = () => {
    const form = useForm<z.infer<typeof DashboardSchema>>({
       resolver: zodResolver(DashboardSchema),
       defaultValues: {
+         fullname: user?.fullname,
          username: user?.username,
          about: user?.about,
          socialLinks: user?.socialLinks,
@@ -60,9 +70,11 @@ const page = () => {
    };
 
    const updateFields = (data: z.infer<typeof DashboardSchema>) => {
+      form.setValue('fullname', data.fullname || '');
       form.setValue('username', data.username);
       form.setValue('about', data.about);
       form.setValue('socialLinks', data.socialLinks);
+      console.log(data);
    };
 
    useEffect(() => {
@@ -75,6 +87,7 @@ const page = () => {
       setIsSubmitting(true);
       try {
          const result = await axios.post('/api/update-profile', {
+            fullname: data.fullname,
             username: user?.username,
             profilePic: user?.profilePic,
             about: data?.about,
@@ -107,7 +120,7 @@ const page = () => {
       }
    }
 
-   const { fields, append } = useFieldArray({
+   const { fields, append, remove } = useFieldArray({
       name: 'socialLinks',
       control: form.control,
    });
@@ -168,6 +181,19 @@ const page = () => {
          setLoading(false);
       }
    }
+
+   const socialMedias = [
+      'GitHub',
+      'LinkedIn',
+      'Twitter',
+      'Reddit',
+      'Stack Overflow',
+      'Dev.to',
+      'Hashnode',
+      'YouTube',
+      'Medium',
+      'Discord/Slack Communities',
+   ];
 
    return (
       <div className='flex items-center   justify-center m-4'>
@@ -242,7 +268,7 @@ const page = () => {
                      {loading ? (
                         <>
                            <Loader2 className='mr-2 h-4 w-4 animate-spin' />{' '}
-                           'Please Wait..'
+                           Please Wait..
                         </>
                      ) : user?.profilePic ? (
                         'Update'
@@ -256,8 +282,26 @@ const page = () => {
             <Form {...form}>
                <form
                   onSubmit={form.handleSubmit(onSubmit)}
-                  className='space-y-6'
+                  className='space-y-6 mt-4'
                >
+                  <FormField
+                     control={form.control}
+                     name='fullname'
+                     render={({ field }) => (
+                        <FormItem>
+                           <FormLabel>Full Name</FormLabel>
+                           <FormControl>
+                              <Input
+                                 placeholder='Fullname'
+                                 {...field}
+                                 onChange={(e) =>
+                                    field.onChange(e.target.value)
+                                 }
+                              />
+                           </FormControl>
+                        </FormItem>
+                     )}
+                  />
                   <FormField
                      control={form.control}
                      name='username'
@@ -272,8 +316,8 @@ const page = () => {
                               />
                            </FormControl>
                            <FormDescription>
-                              You can't change your username at any time. If you
-                              want to then contact us.
+                              * You can't change your username at any time. If
+                              you want to then contact us.
                            </FormDescription>
                         </FormItem>
                      )}
@@ -297,45 +341,122 @@ const page = () => {
                      )}
                   />
 
-                  <div>
+                  <div className='w-full'>
                      {fields.map((field, index) => (
-                        <FormField
-                           control={form.control}
+                        <div
+                           className='flex flex-row gap-4 my-2'
                            key={field.id}
-                           name={`socialLinks.${index}.value`}
-                           render={({ field }) => (
-                              <FormItem>
-                                 <FormLabel>{`Social Link  ${
-                                    index + 1
-                                 }`}</FormLabel>
-                                 <FormDescription>
-                                    Add links to your website, blog, or social
-                                    media profiles.
-                                 </FormDescription>
-                                 <FormControl>
-                                    <Input {...field} />
-                                 </FormControl>
-                                 <FormMessage />
-                              </FormItem>
-                           )}
-                        />
+                        >
+                           <FormField
+                              control={form.control}
+                              key={field.id + Math.random()}
+                              name={`socialLinks.${index}.social`}
+                              render={({ field }) => (
+                                 <FormItem>
+                                    <FormControl>
+                                       <Select
+                                          defaultValue={field.value}
+                                          onValueChange={(e) => {
+                                             field.onChange(e);
+                                          }}
+                                          {...field}
+                                       >
+                                          <SelectTrigger className='w-[180px]'>
+                                             <SelectValue placeholder='Select Link' />
+                                          </SelectTrigger>
+                                          <SelectContent>
+                                             <SelectGroup>
+                                                <SelectLabel>
+                                                   Social Links
+                                                </SelectLabel>
+                                                <SelectItem value='GitHub'>
+                                                   GitHub
+                                                </SelectItem>
+                                                <SelectItem value='LinkedIn'>
+                                                   LinkedIn
+                                                </SelectItem>
+                                                <SelectItem value='Twitter'>
+                                                   Twitter
+                                                </SelectItem>
+                                                <SelectItem value='Reddit'>
+                                                   Reddit
+                                                </SelectItem>
+                                                <SelectItem value='Stack Overflow'>
+                                                   Stack Overflow
+                                                </SelectItem>
+                                                <SelectItem value='Dev.to'>
+                                                   Dev.to
+                                                </SelectItem>
+                                                <SelectItem value='Hashnode'>
+                                                   Hashnode
+                                                </SelectItem>
+                                                <SelectItem value='YouTube'>
+                                                   YouTube
+                                                </SelectItem>
+                                                <SelectItem value='Medium'>
+                                                   Medium
+                                                </SelectItem>
+                                                <SelectItem value='Discord/Slack Communities'>
+                                                   Discord/Slack Communities
+                                                </SelectItem>
+                                                <SelectItem value='Portfolio'>
+                                                   Portfolio
+                                                </SelectItem>
+                                             </SelectGroup>
+                                          </SelectContent>
+                                       </Select>
+                                    </FormControl>
+                                    <FormMessage />
+                                 </FormItem>
+                              )}
+                           />
+                           <FormField
+                              control={form.control}
+                              key={field.id + Math.random()}
+                              name={`socialLinks.${index}.value`}
+                              render={({ field }) => (
+                                 <FormItem>
+                                    <FormControl>
+                                       <Input {...field} className='w-full' />
+                                    </FormControl>
+                                    <FormMessage />
+                                 </FormItem>
+                              )}
+                           />
+                        </div>
                      ))}
-                     <Button
-                        type='button'
-                        variant='outline'
-                        size='sm'
-                        className='mt-2'
-                        onClick={() => append({ value: '' })}
-                     >
-                        Add URL
-                     </Button>
+
+                     <div className='flex flex-row gap-5'>
+                        <Button
+                           type='button'
+                           variant='outline'
+                           size='sm'
+                           className='mt-2'
+                           onClick={() => append({ value: '', social: '' })}
+                        >
+                           Add URL
+                        </Button>
+                        <Button
+                           type='button'
+                           variant='outline'
+                           size='sm'
+                           className='mt-2'
+                           onClick={() => remove(0)}
+                        >
+                           Remove URL
+                        </Button>
+                     </div>
+                     <FormDescription className='mt-4'>
+                        * After adding and removing please update so that it
+                        will be reflected on website.
+                     </FormDescription>
                   </div>
 
                   <Button type='submit'>
                      {isSubmitting ? (
                         <>
                            <Loader2 className='mr-2 h-4 w-4 animate-spin' />
-                           'Please Wait..'
+                           Please Wait..
                         </>
                      ) : (
                         'Update'

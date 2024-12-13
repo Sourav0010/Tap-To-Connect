@@ -10,7 +10,31 @@ import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 const page = () => {
    const { username } = useParams();
-   const [user, setUser] = React.useState({} as User);
+   const button_color = {
+      GitHub: '#181717',
+      LinkedIn: '#0A66C2',
+      Twitter: '#1DA1F2',
+      Reddit: '#FF4500',
+      'Stack Overflow': '#F48024',
+      'Dev.to': '#0A0A0A',
+      Hashnode: '#2962FF',
+      YouTube: '#FF0000',
+      Medium: '#12100E',
+      'Discord/Slack Communities': '#5865F2',
+   };
+   const [user, setUser] = React.useState({
+      fullname: '',
+      username: '',
+      about: '',
+      socialLinks: [
+         {
+            social: '',
+            value: '',
+            _id: '',
+         },
+      ],
+      profilePic: '',
+   });
    const [loading, setLoading] = React.useState(false);
 
    async function getUser() {
@@ -45,18 +69,23 @@ const page = () => {
          <div className='space-y-4 flex flex-col items-center'>
             <div className='mt-4 flex flex-col items-center justify-center w-full'>
                <Avatar className='w-20 h-20'>
-                  <AvatarImage src={user.image || ''} />
+                  <AvatarImage src={user.profilePic || ''} />
                   <AvatarFallback className='text-4xl'>U</AvatarFallback>
                </Avatar>
             </div>
-            <h2>{user?.username || ''}</h2>
+            <h2>{user?.fullname || ''}</h2>
             <p>{user?.about || ''}</p>
             <div className='flex gap-2 flex-col'>
-               {user?.socialLinks?.map(({ value, _id }, index) => (
-                  <Link href={value} key={_id} target='_blank'>
-                     <Button key={_id}>{`Social Link ${index + 1}`}</Button>
-                  </Link>
-               ))}
+               {user?.socialLinks?.map(({ social, value, _id }) => {
+                  
+                  return (
+                     <Link href={value} key={_id} target='_blank'>
+                        <Button className={`w-full`} key={_id}>
+                           {social}
+                        </Button>
+                     </Link>
+                  );
+               })}
             </div>
          </div>
       </div>

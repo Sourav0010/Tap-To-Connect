@@ -1,6 +1,7 @@
 import mongoose, { Document, Schema } from 'mongoose';
 
 export interface User extends Document {
+   fullname: string,
    username: string;
    email: string;
    password: string;
@@ -8,10 +9,14 @@ export interface User extends Document {
    profilePic: string;
    isVerified: boolean;
    otp: string;
-   socialLinks: [{ value: string }];
+   socialLinks: [{ value: string; social: string }];
 }
 
 const userSchema = new Schema<User>({
+   fullname:{
+      type: String,
+      default: '',
+   },
    username: {
       type: String,
       required: true,
@@ -49,10 +54,12 @@ const userSchema = new Schema<User>({
       type: String,
       required: true,
    },
-   socialLinks: {
-      type: [{ value: String }],
-      default: [{ value: '' }],
-   },
+   socialLinks: [
+      {
+         value: String,
+         social: String,
+      },
+   ],
 });
 
 const User =
