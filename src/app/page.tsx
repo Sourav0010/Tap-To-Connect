@@ -14,7 +14,6 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 
 import {
    Card,
-   CardContent,
    CardDescription,
    CardHeader,
    CardTitle,
@@ -81,7 +80,7 @@ export default function Home() {
       },
    ];
 
-   const teamMembers: any = [
+   const teamMembers = [
       {
          image: 'https://unsplash.com/photos/ILip77SbmOE/download?ixid=M3wxMjA3fDB8MXxhbGx8fHx8fHx8fHwxNzMzOTk3MTkyfA&auto=format&fit=crop&w=76&q=80',
          name: 'George Harris',
@@ -163,18 +162,23 @@ export default function Home() {
             </div>
             <div className='w-full max-w-6xl'>
                <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
-                  {teamMembers.map((value: any, index: number) => (
-                     <Card key={index}>
-                        <CardHeader>
-                           <Avatar>
-                              <AvatarImage src={value.image} alt='@shadcn' />
-                              <AvatarFallback>CN</AvatarFallback>
-                           </Avatar>
-                           <CardTitle>{value.name}</CardTitle>
-                           <CardDescription>{value.title}</CardDescription>
-                        </CardHeader>
-                     </Card>
-                  ))}
+                  {teamMembers.map(
+                     (
+                        value: { image: string; name: string; title: string },
+                        index: number
+                     ) => (
+                        <Card key={index}>
+                           <CardHeader>
+                              <Avatar>
+                                 <AvatarImage src={value.image} alt='@shadcn' />
+                                 <AvatarFallback>CN</AvatarFallback>
+                              </Avatar>
+                              <CardTitle>{value.name}</CardTitle>
+                              <CardDescription>{value.title}</CardDescription>
+                           </CardHeader>
+                        </Card>
+                     )
+                  )}
                </div>
             </div>
             <Separator />

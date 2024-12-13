@@ -1,6 +1,4 @@
-import User from '@/model/User.model';
 import { v2 as cloudinary } from 'cloudinary';
-import { useSession } from 'next-auth/react';
 
 cloudinary.config({
    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -13,7 +11,7 @@ interface CloudinaryUpoloadResult {
    public_id: string;
 }
 
-export async function POST(req: Request, res: Response) {
+export async function POST(req: Request) {
    const formData = await req.formData();
 
    try {
@@ -47,9 +45,9 @@ export async function POST(req: Request, res: Response) {
          },
          { status: 200 }
       );
-   } catch (error) {
+   } catch (error: any) {
       return Response.json(
-         { message: 'Failed to upload image', success: false },
+         { message: error.message || 'Failed to upload image', success: false },
          { status: 500 }
       );
    }

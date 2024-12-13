@@ -8,7 +8,6 @@ import {
    Drawer,
    DrawerClose,
    DrawerContent,
-   DrawerDescription,
    DrawerFooter,
    DrawerHeader,
    DrawerTitle,
@@ -33,43 +32,9 @@ const NavBar = () => {
             <h1>Tap To Connect</h1>
          </Link>
          <div className='flex flex-row gap-4 items-center justify-center'>
-            {!window.location.pathname.startsWith('/u/') && (
-               <Button onClick={() => handleClick(session)}>
-                  {session ? 'Sign Out' : 'Sign Up'}
-               </Button>
-            )}
-            {window.location.pathname.startsWith('/u/') && (
-               <Drawer>
-                  <DrawerTrigger>
-                     <Button>
-                        <Share />
-                     </Button>
-                  </DrawerTrigger>
-                  <DrawerContent>
-                     <DrawerHeader>
-                        <DrawerTitle>Share Your Profile</DrawerTitle>
-                     </DrawerHeader>
-                     <DrawerFooter className='flex flex-col items-center justify-center'>
-                        <Button
-                           onClick={() =>
-                              navigator.clipboard.writeText(
-                                 window.location.protocol +
-                                    window.location.host +
-                                    window.location.pathname
-                              )
-                           }
-                           className='w-20'
-                           variant={'secondary'}
-                        >
-                           Copy
-                        </Button>
-                        <DrawerClose>
-                           <Button variant='outline'>Cancel</Button>
-                        </DrawerClose>
-                     </DrawerFooter>
-                  </DrawerContent>
-               </Drawer>
-            )}
+            <Button onClick={() => handleClick(session)}>
+               {session ? 'Sign Out' : 'Sign Up'}
+            </Button>
          </div>
       </nav>
    );

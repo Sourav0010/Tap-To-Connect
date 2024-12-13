@@ -24,10 +24,10 @@ export async function POST(request: Request) {
          },
          { status: 200 }
       );
-   } catch (error) {
+   } catch (error: any) {
       return Response.json(
          {
-            message: 'Error checking username',
+            message: error.message || 'Error checking username',
             success: false,
          },
          { status: 500 }

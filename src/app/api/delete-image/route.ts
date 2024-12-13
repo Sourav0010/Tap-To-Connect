@@ -6,7 +6,7 @@ cloudinary.config({
    api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-export async function DELETE(req: Request, res: Response) {
+export async function DELETE(req: Request) {
    const { public_id } = await req.json();
 
    try {
@@ -16,9 +16,9 @@ export async function DELETE(req: Request, res: Response) {
          { message: 'Image deleted successfully', success: true },
          { status: 200 }
       );
-   } catch (error) {
+   } catch (error: any) {
       return Response.json(
-         { message: 'Failed to delete image', success: false },
+         { message: error.message || 'Failed to delete image', success: false },
          { status: 500 }
       );
    }

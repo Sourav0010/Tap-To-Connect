@@ -1,6 +1,6 @@
 'use client';
 import { useSession } from 'next-auth/react';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import {
@@ -20,7 +20,7 @@ import { DashboardSchema } from '@/schemas/DashboardSchema';
 import { z } from 'zod';
 import { useToast } from '@/hooks/use-toast';
 import axios from 'axios';
-import { Files, Loader2 } from 'lucide-react';
+import { Loader2 } from 'lucide-react';
 import {
    Select,
    SelectContent,
@@ -32,7 +32,7 @@ import {
 } from '@/components/ui/select';
 
 const page = () => {
-   const [user, setUser] = React.useState({
+   const [user, setUser] = useState({
       fullname: '',
       username: '',
       about: '',
@@ -53,8 +53,8 @@ const page = () => {
 
    const formImage = useForm();
 
-   const [loading, setLoading] = React.useState(false);
-   const [isSubmitting, setIsSubmitting] = React.useState(false);
+   const [loading, setLoading] = useState(false);
+   const [isSubmitting, setIsSubmitting] = useState(false);
    const { data: session } = useSession();
 
    const fetchUser = async () => {
@@ -74,12 +74,19 @@ const page = () => {
       form.setValue('username', data.username);
       form.setValue('about', data.about);
       form.setValue('socialLinks', data.socialLinks);
-      console.log(data);
    };
 
    useEffect(() => {
       fetchUser();
    }, [session]);
+
+   const [baseUrl, setBaseUrl] = useState(() => {
+      if (typeof window !== 'undefined') {
+         return window.location.origin;
+      } else {
+         return '';
+      }
+   });
 
    const { toast } = useToast();
 
@@ -182,19 +189,6 @@ const page = () => {
       }
    }
 
-   const socialMedias = [
-      'GitHub',
-      'LinkedIn',
-      'Twitter',
-      'Reddit',
-      'Stack Overflow',
-      'Dev.to',
-      'Hashnode',
-      'YouTube',
-      'Medium',
-      'Discord/Slack Communities',
-   ];
-
    return (
       <div className='flex items-center   justify-center m-4'>
          <div className=''>
@@ -213,19 +207,13 @@ const page = () => {
             <div className='mb-4 gap-2 flex items-center justify-center'>
                <Input
                   type='text'
-                  value={
-                     `${window.location.protocol}//${window.location.host}` +
-                     '/u/' +
-                     (user?.username || '')
-                  }
+                  value={baseUrl + '/u/' + (user?.username || '')}
                   contentEditable={false}
                />
                <Button
                   onClick={() =>
                      navigator.clipboard.writeText(
-                        `${window.location.protocol}//${window.location.host}` +
-                           '/u/' +
-                           (session?.user.username || '')
+                        baseUrl + '/u/' + (session?.user.username || '')
                      )
                   }
                >
@@ -241,9 +229,7 @@ const page = () => {
                   <FormField
                      control={formImage.control}
                      name='profilePic'
-                     render={({
-                        field: { value, onChange, ...fieldProps },
-                     }) => (
+                     render={({ field: { onChange, ...fieldProps } }) => (
                         <FormItem>
                            <FormLabel>Profile Picture</FormLabel>
                            <FormControl>

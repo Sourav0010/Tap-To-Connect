@@ -4,7 +4,8 @@ import User from '@/model/User.model';
 export async function POST(request: Request) {
    await dbConnect();
 
-   const { fullname, username, about, socialLinks, profilePic } = await request.json();
+   const { fullname, username, about, socialLinks, profilePic } =
+      await request.json();
    console.log(socialLinks);
 
    try {
@@ -28,7 +29,7 @@ export async function POST(request: Request) {
          user.profilePic = profilePic;
       }
 
-      if(!user?.fullname || user?.fullname != fullname){
+      if (!user?.fullname || user?.fullname != fullname) {
          user.fullname = fullname;
       }
 
@@ -58,11 +59,11 @@ export async function POST(request: Request) {
          },
          { status: 200 }
       );
-   } catch (error) {
+   } catch (error: any) {
       return Response.json(
          {
             success: false,
-            message: 'Error while updating profile',
+            message: error.message || 'Error while updating profile',
          },
          { status: 500 }
       );

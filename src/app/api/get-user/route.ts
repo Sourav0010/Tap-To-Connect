@@ -6,7 +6,9 @@ export async function POST(request: Request) {
    const { username } = await request.json();
 
    try {
-      const user = await User.findOne({ username }).select('-password -isVerified -otp');
+      const user = await User.findOne({ username }).select(
+         '-password -isVerified -otp'
+      );
 
       if (!user) {
          return Response.json(
@@ -23,11 +25,11 @@ export async function POST(request: Request) {
          message: 'User Found',
          data: user,
       });
-   } catch (error) {
+   } catch (error: any) {
       return Response.json(
          {
             success: false,
-            message: 'Error while getting user',
+            message: error.message || 'Error while getting user',
          },
          { status: 500 }
       );

@@ -1,6 +1,5 @@
 import dbConnect from '@/lib/dbConnect';
 import User from '@/model/User.model';
-import { console } from 'inspector';
 
 export async function POST(request: Request) {
    await dbConnect();
@@ -38,7 +37,7 @@ export async function POST(request: Request) {
          },
          { status: 200 }
       );
-   } catch (error) {
+   } catch (error: any) {
       return Response.json(
          {
             success: false,
