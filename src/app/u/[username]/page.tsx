@@ -5,7 +5,6 @@ import React, { useEffect } from 'react';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 
-import { User } from 'next-auth';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 const page = () => {

@@ -37,7 +37,7 @@ const page = () => {
       username: '',
       about: '',
       socialLinks: [],
-      profilePic: new File([], ''),
+      profilePic: '',
       _id: '',
    });
 
@@ -51,7 +51,11 @@ const page = () => {
       },
    });
 
-   const formImage = useForm();
+   const formImage = useForm({
+      defaultValues:{
+         profilePic: new File([], '')
+      }
+   });
 
    const [loading, setLoading] = useState(false);
    const [isSubmitting, setIsSubmitting] = useState(false);
@@ -145,8 +149,8 @@ const page = () => {
          });
 
          if (response.data.url) {
-            if (prevPic) {
-               const public_id = prevPic.split('/').pop()?.split('.')[0];
+            if (typeof prevPic === 'string' && prevPic) {
+               const public_id = prevPic?.split('/').pop()?.split('.')[0];
 
                const response = await axios.delete('/api/delete-image', {
                   data: { public_id },
