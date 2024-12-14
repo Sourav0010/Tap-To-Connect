@@ -64,7 +64,7 @@ const page = () => {
             <Skeleton className='h-12 w-60 ' />
          </div>
       </div>
-   ) : user ? (
+   ) : user.username ? (
       <div className='w-full  h-svh flex items-center justify-center'>
          <div className='space-y-4 flex flex-col items-center'>
             <div className='mt-4 flex flex-col items-center justify-center w-full'>
@@ -77,7 +77,6 @@ const page = () => {
             <p>{user?.about || ''}</p>
             <div className='flex gap-2 flex-col'>
                {user?.socialLinks?.map(({ social, value, _id }) => {
-                  
                   return (
                      <Link href={value} key={_id} target='_blank'>
                         <Button className={`w-full`} key={_id}>
@@ -90,7 +89,9 @@ const page = () => {
          </div>
       </div>
    ) : (
-      '...'
+      <div className='w-full  h-svh flex items-center justify-center'>
+         <h2 className='text-lg font-bold'>User not found || 404</h2>
+      </div>
    );
 };
 

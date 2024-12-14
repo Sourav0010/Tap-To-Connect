@@ -37,7 +37,7 @@ const page = () => {
       username: '',
       about: '',
       socialLinks: [],
-      profilePic: '',
+      profilePic: new File([], ''),
       _id: '',
    });
 
@@ -229,7 +229,9 @@ const page = () => {
                   <FormField
                      control={formImage.control}
                      name='profilePic'
-                     render={({ field: { onChange, ...fieldProps } }) => (
+                     render={({
+                        field: { value, onChange, ...fieldProps },
+                     }) => (
                         <FormItem>
                            <FormLabel>Profile Picture</FormLabel>
                            <FormControl>
