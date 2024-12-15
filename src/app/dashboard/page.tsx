@@ -52,9 +52,9 @@ const page = () => {
    });
 
    const formImage = useForm({
-      defaultValues:{
-         profilePic: new File([], '')
-      }
+      defaultValues: {
+         profilePic: new File([], ''),
+      },
    });
 
    const [loading, setLoading] = useState(false);
@@ -81,7 +81,7 @@ const page = () => {
    };
 
    useEffect(() => {
-      fetchUser();
+      session?.user?.username && fetchUser();
    }, [session]);
 
    const [baseUrl, setBaseUrl] = useState(() => {
@@ -211,8 +211,8 @@ const page = () => {
             <div className='mb-4 gap-2 flex items-center justify-center'>
                <Input
                   type='text'
+                  readOnly
                   value={baseUrl + '/u/' + (user?.username || '')}
-                  contentEditable={false}
                />
                <Button
                   onClick={() =>
@@ -304,7 +304,7 @@ const page = () => {
                               <Input
                                  placeholder='Username'
                                  {...field}
-                                 disabled
+                                 readOnly
                               />
                            </FormControl>
                            <FormDescription>
@@ -359,20 +359,46 @@ const page = () => {
                                           <SelectContent>
                                              <SelectGroup>
                                                 <SelectLabel>
-                                                   Social Links
+                                                   Social Media
                                                 </SelectLabel>
-                                                <SelectItem value='GitHub'>
-                                                   GitHub
+                                                <SelectItem value='TikTok'>
+                                                   TikTok
                                                 </SelectItem>
-                                                <SelectItem value='LinkedIn'>
-                                                   LinkedIn
+                                                <SelectItem value='Facebook'>
+                                                   Facebook
+                                                </SelectItem>
+                                                <SelectItem value='Snapchat'>
+                                                   Snapchat
+                                                </SelectItem>
+                                                <SelectItem value='Threads'>
+                                                   Threads
                                                 </SelectItem>
                                                 <SelectItem value='Twitter'>
                                                    Twitter
                                                 </SelectItem>
+                                                <SelectItem value='LinkedIn'>
+                                                   LinkedIn
+                                                </SelectItem>
+                                                <SelectItem value='GitHub'>
+                                                   GitHub
+                                                </SelectItem>
                                                 <SelectItem value='Reddit'>
                                                    Reddit
                                                 </SelectItem>
+                                                <SelectItem value='Youtube'>
+                                                   Youtube
+                                                </SelectItem>
+                                                <SelectItem value='Portfolio'>
+                                                   Portfolio
+                                                </SelectItem>
+                                                <SelectItem value='Instagram'>
+                                                   Instagram
+                                                </SelectItem>
+                                             </SelectGroup>
+                                             <SelectGroup>
+                                                <SelectLabel>
+                                                   Developer
+                                                </SelectLabel>
                                                 <SelectItem value='Stack Overflow'>
                                                    Stack Overflow
                                                 </SelectItem>
@@ -382,17 +408,44 @@ const page = () => {
                                                 <SelectItem value='Hashnode'>
                                                    Hashnode
                                                 </SelectItem>
-                                                <SelectItem value='YouTube'>
-                                                   YouTube
-                                                </SelectItem>
                                                 <SelectItem value='Medium'>
                                                    Medium
                                                 </SelectItem>
                                                 <SelectItem value='Discord/Slack Communities'>
                                                    Discord/Slack Communities
                                                 </SelectItem>
-                                                <SelectItem value='Portfolio'>
-                                                   Portfolio
+                                             </SelectGroup>
+                                             <SelectGroup>
+                                                <SelectLabel>
+                                                   Social Media Influencer
+                                                </SelectLabel>
+                                                <SelectItem value='Pinterest'>
+                                                   Pinterest
+                                                </SelectItem>
+                                             </SelectGroup>
+                                             <SelectGroup>
+                                                <SelectLabel>
+                                                   Graphics Designer
+                                                </SelectLabel>
+                                                <SelectItem value='Behance'>
+                                                   Behance
+                                                </SelectItem>
+                                                <SelectItem value='Dribbble'>
+                                                   Dribbble
+                                                </SelectItem>
+                                                <SelectItem value='DeviantArt'>
+                                                   DeviantArt
+                                                </SelectItem>
+                                                <SelectItem value='ArtStation'>
+                                                   ArtStation
+                                                </SelectItem>
+                                             </SelectGroup>
+                                             <SelectGroup>
+                                                <SelectLabel>
+                                                   Video & Photo Editor
+                                                </SelectLabel>
+                                                <SelectItem value='Vimeo'>
+                                                   Vimeo
                                                 </SelectItem>
                                              </SelectGroup>
                                           </SelectContent>

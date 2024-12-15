@@ -113,16 +113,14 @@ const page = () => {
                                  }}
                               />
                            </FormControl>
-                           <FormDescription>
-                              <p
-                                 className={`${
-                                    errorMessage == 'Username already exists'
-                                       ? 'text-red-500'
-                                       : 'text-green-500'
-                                 }`}
-                              >
-                                 {errorMessage && errorMessage}
-                              </p>
+                           <FormDescription
+                              className={`${
+                                 errorMessage == 'Username already exists'
+                                    ? 'text-red-500'
+                                    : 'text-green-500'
+                              }`}
+                           >
+                              {errorMessage && errorMessage}
                            </FormDescription>
                         </FormItem>
                      )}
