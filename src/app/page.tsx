@@ -107,7 +107,7 @@ export default function Home() {
          title: 'Product Manager',
       },
       {
-         image: 'https://images.unsplash.com/photo-1489980557514-251d61e3eeb6?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+         image: 'https://unsplash.com/photos/ILip77SbmOE/download?ixid=M3wxMjA3fDB8MXxhbGx8fHx8fHx8fHwxNzMzOTk3MTkyfA&auto=format&fit=crop&w=76&q=80',
          name: 'Ethan Foster',
          title: 'Full Stack Developer',
       },
@@ -198,12 +198,18 @@ export default function Home() {
                   )}
                </div>
             </div>
-            <Separator />
 
             <footer>
-               <div className='flex flex-col items-center justify-center'>
+               <div className='flex mt-10 flex-col items-center justify-center'>
                   <p className='text-sm text-center'>
-                     &copy; 2023. All rights reserved.
+                     &copy; 2024 Tap To Connect. All rights reserved.
+                  </p>
+                  <p>
+                     It's an opensouce application build and maintained by
+                     Sourav Mohanty .{' '}
+                     <Link href='https://github.com/Sourav0010/Tap-To-Connect'>
+                        <span className='text-sm underline'>GitHub</span>
+                     </Link>
                   </p>
                </div>
             </footer>
