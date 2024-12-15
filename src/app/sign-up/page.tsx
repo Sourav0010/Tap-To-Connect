@@ -92,10 +92,14 @@ const page = () => {
    return (
       <div className='flex items-center justify-center h-svh'>
          <div className='bg-slate-100 px-7 py-10 rounded-xl '>
+            <h1 className='text-2xl font-bold text-center'>Tap To Connect</h1>
+            <p className='text-center text-xs mt-2 mb-5'>
+               Sign up to your account
+            </p>
             <Form {...form}>
                <form
                   onSubmit={form.handleSubmit(onSubmit)}
-                  className='space-y-5'
+                  className='space-y-3'
                >
                   <FormField
                      name='username'
@@ -163,7 +167,7 @@ const page = () => {
                </form>
             </Form>
             <div className='mt-4'>
-               <p>
+               <p className='text-center text-sm'>
                   Already have an account?{' '}
                   <Link href='/sign-in'>
                      <span className='text-blue-600'>Sign In</span>

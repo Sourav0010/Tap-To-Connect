@@ -60,10 +60,15 @@ const page = () => {
    return (
       <div className='flex h-svh items-center justify-center '>
          <div className='bg-slate-100 px-7 py-10 rounded-xl '>
+            <h1 className='text-2xl font-bold text-center'>Tap To Connect</h1>
+            <p className='text-center text-xs mt-2 mb-5'>
+               Sign in to your account
+            </p>
+
             <Form {...form}>
                <form
                   onSubmit={form.handleSubmit(onSubmit)}
-                  className='space-y-6'
+                  className='space-y-3'
                >
                   <FormField
                      control={form.control}
@@ -103,7 +108,7 @@ const page = () => {
                </form>
             </Form>
             <div className='mt-4'>
-               <p>
+               <p className='text-center text-sm'>
                   Don't have an account?{' '}
                   <Link href='/sign-up'>
                      <span className='text-blue-600'>Sign up</span>

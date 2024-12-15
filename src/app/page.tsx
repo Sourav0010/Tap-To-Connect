@@ -141,11 +141,11 @@ export default function Home() {
                   <CarouselContent>
                      {testimonials.map((value, index) => (
                         <CarouselItem
-                           className='max-sm:basis-1/1 max-md:basis-1/2 basis-1/3 w-full'
+                           className='max-sm:basis-1/1 max-md:basis-1/2 basis-1/3 w-full '
                            key={index}
                         >
                            <div className='p-1'>
-                              <Card>
+                              <Card className='shadow-md'>
                                  <CardHeader>
                                     <Avatar>
                                        <AvatarImage
@@ -181,16 +181,19 @@ export default function Home() {
                         value: { image: string; name: string; title: string },
                         index: number
                      ) => (
-                        <Card key={index} className='w-full max-w-sm'>
+                        <Card
+                           key={index}
+                           className='w-full max-w-sm  hover:shadow-lg transition-shadow duration-300 cursor-pointer'
+                        >
                            <CardHeader>
                               <Avatar>
                                  <AvatarImage src={value.image} alt='@shadcn' />
                                  <AvatarFallback>CN</AvatarFallback>
                               </Avatar>
-                              <CardTitle className='font-bold max-sm:text-sm max-md:text-base'>
+                              <CardTitle className='font-bold max-sm:text-sm max-md:text-base cursor-pointer'>
                                  {value.name}
                               </CardTitle>
-                              <CardDescription className='max-sm:text-xs max-md:text-sm'>
+                              <CardDescription className='max-sm:text-xs max-md:text-sm cursor-pointer'>
                                  {value.title}
                               </CardDescription>
                            </CardHeader>
@@ -206,7 +209,12 @@ export default function Home() {
                      &copy; 2024 Tap To Connect. All rights reserved.
                   </p>
 
-                  <p className='text-sm mt-3'>Build by Sourav Mohanty . </p>
+                  <p className='text-sm my-3'>
+                     Build by{' '}
+                     <Link href={'https://sourav-mohanty-dev.netlify.app/'}>
+                        Sourav Mohanty
+                     </Link>{' '}
+                  </p>
                </div>
             </footer>
          </main>
