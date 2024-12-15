@@ -93,15 +93,16 @@ const page = () => {
                               </InputOTP>
                            </FormControl>
                            <FormDescription>
-                              Please enter the one-time password sent to your
-                              email.
+                              Enter the OTP sent to your Email
                            </FormDescription>
                            <FormMessage />
                         </FormItem>
                      )}
                   />
 
-                  <Button type='submit'>Submit</Button>
+                  <Button className='w-full' type='submit'>
+                     Submit
+                  </Button>
                </form>
             </Form>
          </div>

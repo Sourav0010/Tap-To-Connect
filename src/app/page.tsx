@@ -19,6 +19,7 @@ import {
    CardTitle,
 } from '@/components/ui/card';
 import Autoplay from 'embla-carousel-autoplay';
+import { Github } from 'lucide-react';
 
 export default function Home() {
    const testimonials = [
@@ -204,13 +205,8 @@ export default function Home() {
                   <p className='text-sm text-center'>
                      &copy; 2024 Tap To Connect. All rights reserved.
                   </p>
-                  <p>
-                     It's an opensouce application build and maintained by
-                     Sourav Mohanty .{' '}
-                     <Link href='https://github.com/Sourav0010/Tap-To-Connect'>
-                        <span className='text-sm underline'>GitHub</span>
-                     </Link>
-                  </p>
+
+                  <p className='text-sm mt-3'>Build by Sourav Mohanty . </p>
                </div>
             </footer>
          </main>

@@ -157,7 +157,7 @@ const page = () => {
                         </FormItem>
                      )}
                   />
-                  <Button disabled={isLoading} type='submit'>
+                  <Button disabled={isLoading} type='submit' className='w-full'>
                      {!isLoading ? 'Sign Up' : 'Submitting...'}
                   </Button>
                </form>

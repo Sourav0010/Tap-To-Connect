@@ -16,6 +16,7 @@ import { signIn } from 'next-auth/react';
 import { useToast } from '@/hooks/use-toast';
 import { useRouter } from 'next/navigation';
 import { set } from 'mongoose';
+import Link from 'next/link';
 
 const page = () => {
    const [submitting, setSubmitting] = React.useState(false);
@@ -57,8 +58,8 @@ const page = () => {
    }
 
    return (
-      <div className='flex h-svh items-center justify-center'>
-         <div className='bg-slate-100 px-4 py-5 rounded-xl'>
+      <div className='flex h-svh items-center justify-center '>
+         <div className='bg-slate-100 px-7 py-10 rounded-xl '>
             <Form {...form}>
                <form
                   onSubmit={form.handleSubmit(onSubmit)}
@@ -92,11 +93,23 @@ const page = () => {
                         </FormItem>
                      )}
                   />
-                  <Button disabled={submitting} type='submit'>
+                  <Button
+                     disabled={submitting}
+                     type='submit'
+                     className='w-full'
+                  >
                      {submitting ? 'Signing In...' : 'Sign In'}
                   </Button>
                </form>
             </Form>
+            <div className='mt-4'>
+               <p>
+                  Don't have an account?{' '}
+                  <Link href='/sign-up'>
+                     <span className='text-blue-600'>Sign up</span>
+                  </Link>
+               </p>
+            </div>
          </div>
       </div>
    );
