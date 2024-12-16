@@ -19,7 +19,8 @@ import {
    CardTitle,
 } from '@/components/ui/card';
 import Autoplay from 'embla-carousel-autoplay';
-import { Github } from 'lucide-react';
+import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 
 export default function Home() {
    const testimonials = [
@@ -113,6 +114,10 @@ export default function Home() {
          title: 'Full Stack Developer',
       },
    ];
+
+   const { data: session } = useSession();
+   const router = useRouter();
+
    return (
       <>
          <main className='flex min-h-screen flex-col  items-center justify-center h-full'>
@@ -123,9 +128,14 @@ export default function Home() {
                <p className='text-lg max-sm:text-sm max-md:text-base'>
                   Connect to people in the metaverse
                </p>
-               <Link href='/sign-up'>
-                  <Button>Create Account</Button>
-               </Link>
+
+               <Button
+                  onClick={() =>
+                     router.push(session ? '/dashboard' : '/sign-up')
+                  }
+               >
+                  {session ? 'Go to Dashboard' : 'Create an account'}
+               </Button>
             </div>
             <Separator className='my-10' />
             <div>
@@ -215,6 +225,7 @@ export default function Home() {
                         Sourav Mohanty
                      </Link>{' '}
                   </p>
+                  
                </div>
             </footer>
          </main>

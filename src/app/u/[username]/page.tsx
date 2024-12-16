@@ -7,20 +7,10 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
+import { BadgeCheck } from 'lucide-react';
 const page = () => {
    const { username } = useParams();
-   const button_color = {
-      GitHub: '#181717',
-      LinkedIn: '#0A66C2',
-      Twitter: '#1DA1F2',
-      Reddit: '#FF4500',
-      'Stack Overflow': '#F48024',
-      'Dev.to': '#0A0A0A',
-      Hashnode: '#2962FF',
-      YouTube: '#FF0000',
-      Medium: '#12100E',
-      'Discord/Slack Communities': '#5865F2',
-   };
+
    const [user, setUser] = React.useState({
       fullname: '',
       username: '',
@@ -72,18 +62,35 @@ const page = () => {
                   <AvatarFallback className='text-4xl'>U</AvatarFallback>
                </Avatar>
             </div>
-            <h2>{user?.fullname || ''}</h2>
-            <p>{user?.about || ''}</p>
-            <div className='flex gap-2 flex-col'>
+
+            <h2 className='text-lg font-bold'>
+               {user?.fullname || ''}{' '}
+               <span className='font-normal text-sm'>
+                  (@{user?.username || ''})
+               </span>
+            </h2>
+
+            <p className='text-center max-sm:max-w-52 text-sm p-0 m-0'>
+               {user?.about || ''}
+            </p>
+            <div className='flex w-full gap-2 flex-col p-2 border rounded-lg'>
                {user?.socialLinks?.map(({ social, value, _id }) => {
                   return (
                      <Link href={value} key={_id} target='_blank'>
-                        <Button className={`w-full`} key={_id}>
+                        <Button  className={`w-full`} key={_id}>
                            {social}
                         </Button>
                      </Link>
                   );
                })}
+            </div>
+            <div className='flex flex-row gap-2 items-center text-slate-600 mt-4'>
+               <p>Build with</p>
+               <Link href='/sign-in'>
+                  <h2 className='text-sm border border-gray-400 p-2 '>
+                     Tap To Connect
+                  </h2>
+               </Link>
             </div>
          </div>
       </div>
