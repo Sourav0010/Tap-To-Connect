@@ -13,14 +13,26 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 
 import {
+   Dialog,
+   DialogContent,
+   DialogDescription,
+   DialogHeader,
+   DialogTitle,
+   DialogTrigger,
+} from '@/components/ui/dialog';
+
+import {
    Card,
    CardDescription,
    CardHeader,
    CardTitle,
 } from '@/components/ui/card';
+
 import Autoplay from 'embla-carousel-autoplay';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 export default function Home() {
    const testimonials = [
@@ -117,6 +129,18 @@ export default function Home() {
 
    const { data: session } = useSession();
    const router = useRouter();
+
+   const [commits, setCommits] = useState([]);
+
+   async function fetchCommits() {
+      const response = await axios(
+         'https://api.github.com/repos/sourav0010/Tap-To-Connect/commits'
+      );
+      setCommits(response.data);
+   }
+   useEffect(() => {
+      fetchCommits();
+   }, []);
 
    return (
       <>
@@ -224,8 +248,25 @@ export default function Home() {
                      <Link href={'https://sourav-mohanty-dev.netlify.app/'}>
                         Sourav Mohanty
                      </Link>{' '}
+                     <Dialog>
+                        <DialogTrigger>
+                           <span>Change Log</span>
+                        </DialogTrigger>
+                        <DialogContent>
+                           <DialogHeader>
+                              <DialogTitle>Change Logs</DialogTitle>
+                              <DialogDescription>
+                                 {commits.map((commit: any, index) => (
+                                    <p key={commit.sha}>
+                                       {index + 1 + ' : '}{' '}
+                                       {commit?.commit?.message}
+                                    </p>
+                                 ))}
+                              </DialogDescription>
+                           </DialogHeader>
+                        </DialogContent>
+                     </Dialog>
                   </p>
-                  
                </div>
             </footer>
          </main>

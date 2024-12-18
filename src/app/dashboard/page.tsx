@@ -336,7 +336,7 @@ const page = () => {
                   <div className='w-full'>
                      {fields.map((field, index) => (
                         <div
-                           className='flex flex-row gap-4 my-2'
+                           className='flex flex-row gap-4 my-2 w-full'
                            key={field.id}
                         >
                            <FormField
@@ -460,8 +460,8 @@ const page = () => {
                               key={field.id + Math.random()}
                               name={`socialLinks.${index}.value`}
                               render={({ field }) => (
-                                 <FormItem>
-                                    <FormControl>
+                                 <FormItem className='w-full'>
+                                    <FormControl className='w-full'>
                                        <Input {...field} className='w-full' />
                                     </FormControl>
                                     <FormMessage />
