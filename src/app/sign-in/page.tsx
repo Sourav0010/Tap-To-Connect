@@ -15,7 +15,7 @@ import { SignInSchema } from '@/schemas/SignInSchema';
 import { signIn } from 'next-auth/react';
 import { useToast } from '@/hooks/use-toast';
 import { useRouter } from 'next/navigation';
-import { set } from 'mongoose';
+
 import Link from 'next/link';
 
 const page = () => {
@@ -112,6 +112,14 @@ const page = () => {
                   Don't have an account?{' '}
                   <Link href='/sign-up'>
                      <span className='text-blue-600'>Sign up</span>
+                  </Link>
+               </p>
+            </div>
+            <div className='mt-4'>
+               <p className='text-center text-sm'>
+                  I Forgot my password?{' '}
+                  <Link href='/forgotten-password'>
+                     <span className='text-blue-600'>Reset Password</span>
                   </Link>
                </p>
             </div>

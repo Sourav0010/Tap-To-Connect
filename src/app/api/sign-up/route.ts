@@ -24,7 +24,7 @@ export async function POST(request: Request) {
             { password: encryptedPassword, otp },
             { new: true }
          );
-         console.log(user);
+         
          user = await User.findById(user?._id).select('-password');
       } else {
          user = await User.create({
@@ -33,7 +33,7 @@ export async function POST(request: Request) {
             password: encryptedPassword,
             otp,
          });
-         console.log(user);
+         
 
          if (!user) {
             return Response.json(
@@ -47,7 +47,18 @@ export async function POST(request: Request) {
          user = await User.findOne({ email, username }).select('-password');
       }
 
-      sendVerificationEmail(email, username, otp);
+      const result = await sendVerificationEmail(email, username, otp);
+
+      if (!result.success) {
+         return Response.json(
+            {
+               success: false,
+               message: 'Verification email failed',
+               data: { code: otp },
+            },
+            { status: 400 }
+         );
+      }
 
       return Response.json(
          {

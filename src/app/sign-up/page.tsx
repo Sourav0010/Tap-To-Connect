@@ -71,14 +71,25 @@ const page = () => {
             toast({
                title: 'Error',
                description: response.data.message || 'Something went wrong',
+               variant: 'destructive',
             });
          }
       } catch (error: any) {
-         console.log(error);
-         toast({
-            title: 'Error',
-            description: error.response.data.message || 'Something went wrong',
-         });
+         console.log(error.response.data.message);
+         if (error.response.data.message == 'Verification email failed') {
+            toast({
+               title: 'Verification OTP ',
+               description: `Your verification code is ${error.response.data.data.code}`,
+            });
+            router.replace(`/verify/${data.username}`);
+         } else {
+            toast({
+               title: 'Error',
+               description:
+                  error.response.data.message || 'Something went wrong',
+               variant: 'destructive',
+            });
+         }
       } finally {
          setIsLoading(false);
       }
