@@ -3,6 +3,8 @@ import './globals.css';
 import NavBar from '@/components/NavBar';
 import AuthProvider from '@/context/AuthProvider';
 import { Toaster } from '@/components/ui/toaster';
+import { SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
+import { AppSidebar } from '@/components/app-sidebar';
 
 export const metadata: Metadata = {
    title: 'Tap To Connect',
@@ -20,8 +22,11 @@ export default function RootLayout({
          <AuthProvider>
             <body>
                <NavBar />
-               {children}
-               <Toaster />
+               
+                  
+                  {children}
+                  <Toaster />
+               
             </body>
          </AuthProvider>
       </html>

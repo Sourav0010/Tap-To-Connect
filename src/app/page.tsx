@@ -184,9 +184,11 @@ export default function Home() {
                                     <Avatar>
                                        <AvatarImage
                                           src={value.image}
-                                          alt='@shadcn'
+                                          alt={value.name}
                                        />
-                                       <AvatarFallback>CN</AvatarFallback>
+                                       <AvatarFallback>
+                                          {value.name[0].toUpperCase()}
+                                       </AvatarFallback>
                                     </Avatar>
                                     <CardTitle className='font-bold max-sm:text-sm'>
                                        {value.name}

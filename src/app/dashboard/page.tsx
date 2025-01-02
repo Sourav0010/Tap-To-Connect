@@ -215,11 +215,19 @@ const page = () => {
                   value={baseUrl + '/u/' + (user?.username || '')}
                />
                <Button
-                  onClick={() =>
+                  onClick={(e) => {
                      navigator.clipboard.writeText(
                         baseUrl + '/u/' + (session?.user.username || '')
-                     )
-                  }
+                     );
+                     e.target.textContent = 'Copied';
+                     e.target.classList.add('bg-green-500');
+                     e.target.classList.add('hover:bg-green-600');
+                     setTimeout(() => {
+                        e.target.textContent = 'Copy';
+                        e.target.classList.remove('bg-green-500');
+                        e.target.classList.remove('hover:bg-green-600');
+                     }, 2000);
+                  }}
                >
                   Copy
                </Button>
