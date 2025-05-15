@@ -7,7 +7,7 @@ export default function RootLayout({
    children: React.ReactNode;
 }) {
    return (
-      <SidebarProvider>
+      <SidebarProvider defaultOpen={false}>
          <AppSidebar />
          <SidebarTrigger className='bg-slate-800 text-white h-4 w-4 p-3 m-3' />
          {children}

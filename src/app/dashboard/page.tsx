@@ -528,7 +528,7 @@ const page = () => {
                   <h2 className='text-xl font-bold'>Mockup</h2>
                   <p className='text-gray-500'>This is the mockup</p>
                </div>
-               <div className='w-full  h-svh flex items-center justify-center border border-gray-300 rounded-lg'>
+               <div className='w-full  h-svh flex items-center justify-center '>
                   <div className='space-y-4 flex flex-col items-center'>
                      <div className='mt-4 flex flex-col items-center justify-center w-full'>
                         <Avatar className='w-20 h-20'>

@@ -25,7 +25,7 @@ const NavBar = () => {
    }
 
    return (
-      <nav className='bg-slate-800 text-white px-5 py-4 flex items-center justify-between sticky top-0 z-50 shadow-md'>
+      <nav className='bg-background text-foreground px-5 py-4 flex items-center justify-between sticky top-0 z-50 shadow-md'>
          <div className='flex flex-row gap-4 items-center'>
             <Link href='/'>
                <h1>Tap To Connect</h1>

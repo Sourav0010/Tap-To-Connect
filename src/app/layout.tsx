@@ -4,7 +4,6 @@ import NavBar from '@/components/NavBar';
 import AuthProvider from '@/context/AuthProvider';
 import { Toaster } from '@/components/ui/toaster';
 
-
 export const metadata: Metadata = {
    title: 'Tap To Connect',
    description:
