@@ -102,7 +102,7 @@ const page = () => {
    }, [username]);
    return (
       <div className='flex items-center justify-center  h-svh'>
-         <div className='bg-slate-100 px-7 py-10 w-1/3 rounded-xl '>
+         <div className='bg-slate-100 px-7 py-10 sm:w-2/3 lg:w-1/3 w-3/4 md:mx-7 rounded-xl '>
             <h1 className='text-2xl font-bold text-center'>Tap To Connect</h1>
             <p className='text-center text-xs mt-2 mb-5'>
                Sign up to your account

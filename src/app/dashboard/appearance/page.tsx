@@ -42,11 +42,10 @@ const page = () => {
    }
 
    return (
-      <div className='p-4 flex flex-col gap-4 w-full'>
-         <h1 className='text-2xl font-bold'>Appearance</h1>
-
+      <div className=' flex flex-col gap-4 w-full'>
          <ResizablePanelGroup direction='horizontal'>
             <ResizablePanel>
+               <h1 className='text-lg font-bold p-4'>Appearance</h1>
                <div className='flex flex-col items-center justify-center w-full h-svh'>
                   <Form {...form}>
                      <form
@@ -104,7 +103,10 @@ const page = () => {
             </ResizablePanel>
             <ResizableHandle withHandle />
             <ResizablePanel>
-               <Retero />
+               <div>
+                  <h1 className='text-lg font-bold p-4'>Preview</h1>
+                  <Retero />
+               </div>
             </ResizablePanel>
          </ResizablePanelGroup>
       </div>

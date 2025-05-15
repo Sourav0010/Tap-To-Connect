@@ -254,10 +254,10 @@ export default function Home() {
                         <DialogTrigger>
                            <span>Change Log</span>
                         </DialogTrigger>
-                        <DialogContent>
+                        <DialogContent className='h-svh overflow-scroll'>
                            <DialogHeader>
                               <DialogTitle>Change Logs</DialogTitle>
-                              <DialogDescription>
+                              <DialogDescription className='text-left'>
                                  {commits.map((commit: any, index) => (
                                     <p key={commit.sha}>
                                        {index + 1 + ' : '}{' '}

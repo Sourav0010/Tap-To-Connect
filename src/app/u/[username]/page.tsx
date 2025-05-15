@@ -4,7 +4,6 @@ import { useParams } from 'next/navigation';
 import React, { useEffect } from 'react';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import Retero from '@/themes/Retero';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 const page = () => {

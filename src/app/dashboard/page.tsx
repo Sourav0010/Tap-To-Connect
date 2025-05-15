@@ -523,7 +523,7 @@ const page = () => {
          </ResizablePanel>
          <ResizableHandle withHandle />
          <ResizablePanel>
-            <div className='max-md:hidden flex flex-col  items-center  justify-center w-full'>
+            <div className=' flex flex-col  items-center  justify-center w-full'>
                <div className=' self-start py-4 px-4'>
                   <h2 className='text-xl font-bold'>Mockup</h2>
                   <p className='text-gray-500'>This is the mockup</p>
