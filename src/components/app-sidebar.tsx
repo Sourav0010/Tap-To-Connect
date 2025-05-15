@@ -54,7 +54,7 @@ const items = [
 export function AppSidebar() {
    return (
       <Sidebar>
-         <SidebarContent>
+         <SidebarContent className='mt-20'>
             <SidebarGroup>
                <SidebarGroupLabel>Tap To Connect</SidebarGroupLabel>
                <SidebarGroupContent>

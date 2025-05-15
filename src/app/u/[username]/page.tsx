@@ -4,10 +4,9 @@ import { useParams } from 'next/navigation';
 import React, { useEffect } from 'react';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-
+import Retero from '@/themes/Retero';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { BadgeCheck } from 'lucide-react';
 const page = () => {
    const { username } = useParams();
 
@@ -77,7 +76,7 @@ const page = () => {
                {user?.socialLinks?.map(({ social, value, _id }) => {
                   return (
                      <Link href={value} key={_id} target='_blank'>
-                        <Button  className={`w-full`} key={_id}>
+                        <Button className={`w-full`} key={_id}>
                            {social}
                         </Button>
                      </Link>

@@ -30,6 +30,12 @@ import {
    SelectTrigger,
    SelectValue,
 } from '@/components/ui/select';
+import Link from 'next/link';
+import {
+   ResizableHandle,
+   ResizablePanel,
+   ResizablePanelGroup,
+} from '@/components/ui/resizable';
 
 const page = () => {
    const [user, setUser] = useState({
@@ -194,323 +200,379 @@ const page = () => {
    }
 
    return (
-      <div className='flex items-center   justify-center m-4'>
-         <div className=''>
-            <h1 className='font-bold text-xl'>Dashboard</h1>
-            <p className='text-gray-500'>Welcome to the dashboard</p>
+      <ResizablePanelGroup direction='horizontal'>
+         <ResizablePanel>
+            <div className='p-5 flex flex-col  w-full'>
+               <h1 className='font-bold text-xl'>Dashboard</h1>
+               <p className='text-gray-500'>Welcome to the dashboard</p>
 
-            <div className='mt-4 flex flex-col items-center justify-center w-full'>
-               <Avatar className='w-36 h-36'>
-                  <AvatarImage src={user?.profilePic || ''} />
-                  <AvatarFallback className='text-4xl'>U</AvatarFallback>
-               </Avatar>
-            </div>
+               <div className='mt-4 flex flex-col items-center justify-center w-full'>
+                  <Avatar className='w-36 h-36'>
+                     <AvatarImage src={user?.profilePic || ''} />
+                     <AvatarFallback className='text-4xl'>U</AvatarFallback>
+                  </Avatar>
+               </div>
 
-            <h6 className='mt-4'>Public URL</h6>
+               <h6 className='mt-4'>Public URL</h6>
 
-            <div className='mb-4 gap-2 flex items-center justify-center'>
-               <Input
-                  type='text'
-                  readOnly
-                  value={baseUrl + '/u/' + (user?.username || '')}
-               />
-               <Button
-                  onClick={() =>
-                     navigator.clipboard.writeText(
-                        baseUrl + '/u/' + (session?.user.username || '')
-                     )
-                  }
-               >
-                  Copy
-               </Button>
-            </div>
-
-            <Form {...formImage}>
-               <form
-                  onSubmit={formImage.handleSubmit(uploadProfileImage)}
-                  className=' flex items-center gap-2'
-               >
-                  <FormField
-                     control={formImage.control}
-                     name='profilePic'
-                     render={({
-                        field: { value, onChange, ...fieldProps },
-                     }) => (
-                        <FormItem>
-                           <FormLabel>Profile Picture</FormLabel>
-                           <FormControl>
-                              <Input
-                                 {...fieldProps}
-                                 placeholder='Picture'
-                                 type='file'
-                                 accept='image/*, application/pdf'
-                                 onChange={(event) =>
-                                    onChange(
-                                       event.target.files &&
-                                          event.target.files[0]
-                                    )
-                                 }
-                              />
-                           </FormControl>
-                        </FormItem>
-                     )}
+               <div className='mb-4 gap-2 flex items-center justify-center'>
+                  <Input
+                     type='text'
+                     readOnly
+                     value={baseUrl + '/u/' + (user?.username || '')}
                   />
-
-                  <Button type='submit' className='self-end '>
-                     {loading ? (
-                        <>
-                           <Loader2 className='mr-2 h-4 w-4 animate-spin' />{' '}
-                           Please Wait..
-                        </>
-                     ) : user?.profilePic ? (
-                        'Update'
-                     ) : (
-                        'Upload'
-                     )}
+                  <Button
+                     onClick={() =>
+                        navigator.clipboard.writeText(
+                           baseUrl + '/u/' + (session?.user.username || '')
+                        )
+                     }
+                  >
+                     Copy
                   </Button>
-               </form>
-            </Form>
+               </div>
 
-            <Form {...form}>
-               <form
-                  onSubmit={form.handleSubmit(onSubmit)}
-                  className='space-y-6 mt-4'
-               >
-                  <FormField
-                     control={form.control}
-                     name='fullname'
-                     render={({ field }) => (
-                        <FormItem>
-                           <FormLabel>Full Name</FormLabel>
-                           <FormControl>
-                              <Input
-                                 placeholder='Fullname'
-                                 {...field}
-                                 onChange={(e) =>
-                                    field.onChange(e.target.value)
-                                 }
-                              />
-                           </FormControl>
-                        </FormItem>
-                     )}
-                  />
-                  <FormField
-                     control={form.control}
-                     name='username'
-                     render={({ field }) => (
-                        <FormItem>
-                           <FormLabel>Username</FormLabel>
-                           <FormControl>
-                              <Input
-                                 placeholder='Username'
-                                 {...field}
-                                 readOnly
-                              />
-                           </FormControl>
-                           <FormDescription>
-                              * You can't change your username at any time. If
-                              you want to then contact us.
-                           </FormDescription>
-                        </FormItem>
-                     )}
-                  />
-                  <FormField
-                     control={form.control}
-                     name='about'
-                     render={({ field }) => (
-                        <FormItem>
-                           <FormLabel>Bio</FormLabel>
-                           <FormControl>
-                              <Textarea
-                                 placeholder='Bio'
-                                 {...field}
-                                 onChange={(e) =>
-                                    field.onChange(e.target.value)
-                                 }
-                              />
-                           </FormControl>
-                        </FormItem>
-                     )}
-                  />
+               <Form {...formImage}>
+                  <form
+                     onSubmit={formImage.handleSubmit(uploadProfileImage)}
+                     className=' flex items-center gap-2'
+                  >
+                     <FormField
+                        control={formImage.control}
+                        name='profilePic'
+                        render={({
+                           field: { value, onChange, ...fieldProps },
+                        }) => (
+                           <FormItem>
+                              <FormLabel>Profile Picture</FormLabel>
+                              <FormControl>
+                                 <Input
+                                    {...fieldProps}
+                                    placeholder='Picture'
+                                    type='file'
+                                    accept='image/*, application/pdf'
+                                    onChange={(event) =>
+                                       onChange(
+                                          event.target.files &&
+                                             event.target.files[0]
+                                       )
+                                    }
+                                 />
+                              </FormControl>
+                           </FormItem>
+                        )}
+                     />
 
-                  <div className='w-full'>
-                     {fields.map((field, index) => (
-                        <div
-                           className='flex flex-row gap-4 my-2 w-full'
-                           key={field.id}
-                        >
-                           <FormField
-                              control={form.control}
-                              key={field.id + Math.random()}
-                              name={`socialLinks.${index}.social`}
-                              render={({ field }) => (
-                                 <FormItem>
-                                    <FormControl>
-                                       <Select
-                                          defaultValue={field.value}
-                                          onValueChange={(e) => {
-                                             field.onChange(e);
-                                          }}
-                                          {...field}
-                                       >
-                                          <SelectTrigger className='w-[180px]'>
-                                             <SelectValue placeholder='Select Link' />
-                                          </SelectTrigger>
-                                          <SelectContent>
-                                             <SelectGroup>
-                                                <SelectLabel>
-                                                   Social Media
-                                                </SelectLabel>
-                                                <SelectItem value='TikTok'>
-                                                   TikTok
-                                                </SelectItem>
-                                                <SelectItem value='Facebook'>
-                                                   Facebook
-                                                </SelectItem>
-                                                <SelectItem value='Snapchat'>
-                                                   Snapchat
-                                                </SelectItem>
-                                                <SelectItem value='Threads'>
-                                                   Threads
-                                                </SelectItem>
-                                                <SelectItem value='Twitter'>
-                                                   Twitter
-                                                </SelectItem>
-                                                <SelectItem value='LinkedIn'>
-                                                   LinkedIn
-                                                </SelectItem>
-                                                <SelectItem value='GitHub'>
-                                                   GitHub
-                                                </SelectItem>
-                                                <SelectItem value='Reddit'>
-                                                   Reddit
-                                                </SelectItem>
-                                                <SelectItem value='Youtube'>
-                                                   Youtube
-                                                </SelectItem>
-                                                <SelectItem value='Portfolio'>
-                                                   Portfolio
-                                                </SelectItem>
-                                                <SelectItem value='Instagram'>
-                                                   Instagram
-                                                </SelectItem>
-                                             </SelectGroup>
-                                             <SelectGroup>
-                                                <SelectLabel>
-                                                   Developer
-                                                </SelectLabel>
-                                                <SelectItem value='Stack Overflow'>
-                                                   Stack Overflow
-                                                </SelectItem>
-                                                <SelectItem value='Dev.to'>
-                                                   Dev.to
-                                                </SelectItem>
-                                                <SelectItem value='Hashnode'>
-                                                   Hashnode
-                                                </SelectItem>
-                                                <SelectItem value='Medium'>
-                                                   Medium
-                                                </SelectItem>
-                                                <SelectItem value='Discord/Slack Communities'>
-                                                   Discord/Slack Communities
-                                                </SelectItem>
-                                             </SelectGroup>
-                                             <SelectGroup>
-                                                <SelectLabel>
-                                                   Social Media Influencer
-                                                </SelectLabel>
-                                                <SelectItem value='Pinterest'>
-                                                   Pinterest
-                                                </SelectItem>
-                                             </SelectGroup>
-                                             <SelectGroup>
-                                                <SelectLabel>
-                                                   Graphics Designer
-                                                </SelectLabel>
-                                                <SelectItem value='Behance'>
-                                                   Behance
-                                                </SelectItem>
-                                                <SelectItem value='Dribbble'>
-                                                   Dribbble
-                                                </SelectItem>
-                                                <SelectItem value='DeviantArt'>
-                                                   DeviantArt
-                                                </SelectItem>
-                                                <SelectItem value='ArtStation'>
-                                                   ArtStation
-                                                </SelectItem>
-                                             </SelectGroup>
-                                             <SelectGroup>
-                                                <SelectLabel>
-                                                   Video & Photo Editor
-                                                </SelectLabel>
-                                                <SelectItem value='Vimeo'>
-                                                   Vimeo
-                                                </SelectItem>
-                                             </SelectGroup>
-                                          </SelectContent>
-                                       </Select>
-                                    </FormControl>
-                                    <FormMessage />
-                                 </FormItem>
-                              )}
-                           />
-                           <FormField
-                              control={form.control}
-                              key={field.id + Math.random()}
-                              name={`socialLinks.${index}.value`}
-                              render={({ field }) => (
-                                 <FormItem className='w-full'>
-                                    <FormControl className='w-full'>
-                                       <Input {...field} className='w-full' />
-                                    </FormControl>
-                                    <FormMessage />
-                                 </FormItem>
-                              )}
-                           />
+                     <Button type='submit' className='self-end '>
+                        {loading ? (
+                           <>
+                              <Loader2 className='mr-2 h-4 w-4 animate-spin' />{' '}
+                              Please Wait..
+                           </>
+                        ) : user?.profilePic ? (
+                           'Update'
+                        ) : (
+                           'Upload'
+                        )}
+                     </Button>
+                  </form>
+               </Form>
+
+               <Form {...form}>
+                  <form
+                     onSubmit={form.handleSubmit(onSubmit)}
+                     className='space-y-6 mt-4'
+                  >
+                     <FormField
+                        control={form.control}
+                        name='fullname'
+                        render={({ field }) => (
+                           <FormItem>
+                              <FormLabel>Full Name</FormLabel>
+                              <FormControl>
+                                 <Input
+                                    placeholder='Fullname'
+                                    {...field}
+                                    onChange={(e) =>
+                                       field.onChange(e.target.value)
+                                    }
+                                 />
+                              </FormControl>
+                           </FormItem>
+                        )}
+                     />
+                     <FormField
+                        control={form.control}
+                        name='username'
+                        render={({ field }) => (
+                           <FormItem>
+                              <FormLabel>Username</FormLabel>
+                              <FormControl>
+                                 <Input
+                                    placeholder='Username'
+                                    {...field}
+                                    readOnly
+                                 />
+                              </FormControl>
+                              <FormDescription>
+                                 * You can't change your username at any time.
+                                 If you want to then contact us.
+                              </FormDescription>
+                           </FormItem>
+                        )}
+                     />
+                     <FormField
+                        control={form.control}
+                        name='about'
+                        render={({ field }) => (
+                           <FormItem>
+                              <FormLabel>Bio</FormLabel>
+                              <FormControl>
+                                 <Textarea
+                                    placeholder='Bio'
+                                    {...field}
+                                    onChange={(e) =>
+                                       field.onChange(e.target.value)
+                                    }
+                                 />
+                              </FormControl>
+                           </FormItem>
+                        )}
+                     />
+
+                     <div className='w-full'>
+                        {fields.map((field, index) => (
+                           <div
+                              className='flex flex-row gap-4 my-2 w-full'
+                              key={field.id}
+                           >
+                              <FormField
+                                 control={form.control}
+                                 key={field.id + Math.random()}
+                                 name={`socialLinks.${index}.social`}
+                                 render={({ field }) => (
+                                    <FormItem>
+                                       <FormControl>
+                                          <Select
+                                             defaultValue={field.value}
+                                             onValueChange={(e) => {
+                                                field.onChange(e);
+                                             }}
+                                             {...field}
+                                          >
+                                             <SelectTrigger className='w-[180px]'>
+                                                <SelectValue placeholder='Select Link' />
+                                             </SelectTrigger>
+                                             <SelectContent>
+                                                <SelectGroup>
+                                                   <SelectLabel>
+                                                      Social Media
+                                                   </SelectLabel>
+                                                   <SelectItem value='TikTok'>
+                                                      TikTok
+                                                   </SelectItem>
+                                                   <SelectItem value='Facebook'>
+                                                      Facebook
+                                                   </SelectItem>
+                                                   <SelectItem value='Snapchat'>
+                                                      Snapchat
+                                                   </SelectItem>
+                                                   <SelectItem value='Threads'>
+                                                      Threads
+                                                   </SelectItem>
+                                                   <SelectItem value='Twitter'>
+                                                      Twitter
+                                                   </SelectItem>
+                                                   <SelectItem value='LinkedIn'>
+                                                      LinkedIn
+                                                   </SelectItem>
+                                                   <SelectItem value='GitHub'>
+                                                      GitHub
+                                                   </SelectItem>
+                                                   <SelectItem value='Reddit'>
+                                                      Reddit
+                                                   </SelectItem>
+                                                   <SelectItem value='Youtube'>
+                                                      Youtube
+                                                   </SelectItem>
+                                                   <SelectItem value='Portfolio'>
+                                                      Portfolio
+                                                   </SelectItem>
+                                                   <SelectItem value='Instagram'>
+                                                      Instagram
+                                                   </SelectItem>
+                                                </SelectGroup>
+                                                <SelectGroup>
+                                                   <SelectLabel>
+                                                      Developer
+                                                   </SelectLabel>
+                                                   <SelectItem value='Stack Overflow'>
+                                                      Stack Overflow
+                                                   </SelectItem>
+                                                   <SelectItem value='Dev.to'>
+                                                      Dev.to
+                                                   </SelectItem>
+                                                   <SelectItem value='Hashnode'>
+                                                      Hashnode
+                                                   </SelectItem>
+                                                   <SelectItem value='Medium'>
+                                                      Medium
+                                                   </SelectItem>
+                                                   <SelectItem value='Discord/Slack Communities'>
+                                                      Discord/Slack Communities
+                                                   </SelectItem>
+                                                </SelectGroup>
+                                                <SelectGroup>
+                                                   <SelectLabel>
+                                                      Social Media Influencer
+                                                   </SelectLabel>
+                                                   <SelectItem value='Pinterest'>
+                                                      Pinterest
+                                                   </SelectItem>
+                                                </SelectGroup>
+                                                <SelectGroup>
+                                                   <SelectLabel>
+                                                      Graphics Designer
+                                                   </SelectLabel>
+                                                   <SelectItem value='Behance'>
+                                                      Behance
+                                                   </SelectItem>
+                                                   <SelectItem value='Dribbble'>
+                                                      Dribbble
+                                                   </SelectItem>
+                                                   <SelectItem value='DeviantArt'>
+                                                      DeviantArt
+                                                   </SelectItem>
+                                                   <SelectItem value='ArtStation'>
+                                                      ArtStation
+                                                   </SelectItem>
+                                                </SelectGroup>
+                                                <SelectGroup>
+                                                   <SelectLabel>
+                                                      Video & Photo Editor
+                                                   </SelectLabel>
+                                                   <SelectItem value='Vimeo'>
+                                                      Vimeo
+                                                   </SelectItem>
+                                                </SelectGroup>
+                                             </SelectContent>
+                                          </Select>
+                                       </FormControl>
+                                       <FormMessage />
+                                    </FormItem>
+                                 )}
+                              />
+                              <FormField
+                                 control={form.control}
+                                 key={field.id + Math.random()}
+                                 name={`socialLinks.${index}.value`}
+                                 render={({ field }) => (
+                                    <FormItem className='w-full'>
+                                       <FormControl className='w-full'>
+                                          <Input
+                                             {...field}
+                                             className='w-full'
+                                          />
+                                       </FormControl>
+                                       <FormMessage />
+                                    </FormItem>
+                                 )}
+                              />
+                           </div>
+                        ))}
+
+                        <div className='flex flex-row gap-5'>
+                           <Button
+                              type='button'
+                              variant='outline'
+                              size='sm'
+                              className='mt-2'
+                              onClick={() => append({ value: '', social: '' })}
+                           >
+                              Add URL
+                           </Button>
+                           <Button
+                              type='button'
+                              variant='outline'
+                              size='sm'
+                              className='mt-2'
+                              onClick={() => remove(0)}
+                           >
+                              Remove URL
+                           </Button>
                         </div>
-                     ))}
-
-                     <div className='flex flex-row gap-5'>
-                        <Button
-                           type='button'
-                           variant='outline'
-                           size='sm'
-                           className='mt-2'
-                           onClick={() => append({ value: '', social: '' })}
-                        >
-                           Add URL
-                        </Button>
-                        <Button
-                           type='button'
-                           variant='outline'
-                           size='sm'
-                           className='mt-2'
-                           onClick={() => remove(0)}
-                        >
-                           Remove URL
-                        </Button>
+                        <FormDescription className='mt-4'>
+                           * After adding and removing please update so that it
+                           will be reflected on website.
+                        </FormDescription>
                      </div>
-                     <FormDescription className='mt-4'>
-                        * After adding and removing please update so that it
-                        will be reflected on website.
-                     </FormDescription>
-                  </div>
 
-                  <Button type='submit'>
-                     {isSubmitting ? (
-                        <>
-                           <Loader2 className='mr-2 h-4 w-4 animate-spin' />
-                           Please Wait..
-                        </>
-                     ) : (
-                        'Update'
-                     )}
-                  </Button>
-               </form>
-            </Form>
-         </div>
-      </div>
+                     <Button type='submit'>
+                        {isSubmitting ? (
+                           <>
+                              <Loader2 className='mr-2 h-4 w-4 animate-spin' />
+                              Please Wait..
+                           </>
+                        ) : (
+                           'Update'
+                        )}
+                     </Button>
+                  </form>
+               </Form>
+            </div>
+         </ResizablePanel>
+         <ResizableHandle withHandle />
+         <ResizablePanel>
+            <div className='max-md:hidden flex flex-col  items-center  justify-center w-full'>
+               <div className=' self-start py-4 px-4'>
+                  <h2 className='text-xl font-bold'>Mockup</h2>
+                  <p className='text-gray-500'>This is the mockup</p>
+               </div>
+               <div className='w-full  h-svh flex items-center justify-center border border-gray-300 rounded-lg'>
+                  <div className='space-y-4 flex flex-col items-center'>
+                     <div className='mt-4 flex flex-col items-center justify-center w-full'>
+                        <Avatar className='w-20 h-20'>
+                           <AvatarImage src={user.profilePic || ''} />
+                           <AvatarFallback className='text-4xl'>
+                              U
+                           </AvatarFallback>
+                        </Avatar>
+                     </div>
+
+                     <h2 className='text-lg font-bold'>
+                        {user?.fullname || ''}{' '}
+                        <span className='font-normal text-sm'>
+                           (@{user?.username || ''})
+                        </span>
+                     </h2>
+
+                     <p className='text-center max-sm:max-w-52 text-sm p-0 m-0'>
+                        {user?.about || ''}
+                     </p>
+                     <div className='flex w-full gap-2 flex-col p-2 border rounded-lg'>
+                        {user?.socialLinks?.map(({ social, value, _id }) => {
+                           return (
+                              <Link href={value} key={_id} target='_blank'>
+                                 <Button className={`w-full`} key={_id}>
+                                    {social}
+                                 </Button>
+                              </Link>
+                           );
+                        })}
+                     </div>
+                     <div className='flex flex-row gap-2 items-center text-slate-600 mt-4'>
+                        <p>Build with</p>
+                        <Link href='/sign-in'>
+                           <h2 className='text-sm border border-gray-400 p-2 '>
+                              Tap To Connect
+                           </h2>
+                        </Link>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </ResizablePanel>
+      </ResizablePanelGroup>
    );
 };
 

@@ -22,11 +22,9 @@ export default function RootLayout({
          <AuthProvider>
             <body>
                <NavBar />
-               
-                  
-                  {children}
-                  <Toaster />
-               
+
+               {children}
+               <Toaster />
             </body>
          </AuthProvider>
       </html>
