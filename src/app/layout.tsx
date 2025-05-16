@@ -3,6 +3,8 @@ import './globals.css';
 import NavBar from '@/components/NavBar';
 import AuthProvider from '@/context/AuthProvider';
 import { Toaster } from '@/components/ui/toaster';
+import StoreProvider from './storeProvider';
+import { ThemeHydrator } from './ThemeHydrator';
 
 export const metadata: Metadata = {
    title: 'Tap To Connect',
@@ -18,11 +20,14 @@ export default function RootLayout({
    return (
       <html lang='en'>
          <AuthProvider>
-            <body>
-               <NavBar />
-               {children}
-               <Toaster />
-            </body>
+            <StoreProvider>
+               <body>
+                  <ThemeHydrator />
+                  <NavBar />
+                  {children}
+                  <Toaster />
+               </body>
+            </StoreProvider>
          </AuthProvider>
       </html>
    );

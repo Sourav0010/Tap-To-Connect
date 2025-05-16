@@ -36,6 +36,7 @@ import {
    ResizablePanel,
    ResizablePanelGroup,
 } from '@/components/ui/resizable';
+import { useSelector } from 'react-redux';
 
 const page = () => {
    const [user, setUser] = useState({
@@ -198,6 +199,27 @@ const page = () => {
          setLoading(false);
       }
    }
+
+   interface ThemeState {
+      themeSlice:
+         | {
+              theme: string;
+              isDarkMode: boolean;
+           }
+         | undefined;
+   }
+
+   const state = useSelector((state: ThemeState) => state.themeSlice);
+
+   useEffect(() => {
+      if (state?.isDarkMode) {
+         document.documentElement.classList.add('dark');
+      } else {
+         document.documentElement.classList.remove('dark');
+      }
+   }, []);
+
+   console.log('state: ', state);
 
    return (
       <ResizablePanelGroup direction='horizontal'>
