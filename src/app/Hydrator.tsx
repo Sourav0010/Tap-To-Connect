@@ -1,10 +1,17 @@
 'use client';
 
 import { useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import type { RootState } from '@/lib/store';
+import { useSession } from 'next-auth/react';
+import { clearUser, setUser } from '@/lib/features/userSlice';
+import { setColorVariant, toggleDarkMode } from '@/lib/features/themeSlice';
 
-export function ThemeHydrator() {
+export function Hydrator() {
+   const { data: session, status } = useSession();
+
+   const dispatch = useDispatch();
+
    const darkMode = useSelector(
       (state: RootState) => state.themeSlice.isDarkMode
    );
@@ -40,6 +47,19 @@ export function ThemeHydrator() {
          document.documentElement.classList.remove('dark');
       }
    }, [darkMode, colorVariant]);
+
+   useEffect(() => {
+      if (status === 'authenticated' && session?.user) {
+         console.log('session', session);
+         dispatch(
+            setColorVariant(session.user.themePreference[0].colorVariant)
+         );
+         dispatch(toggleDarkMode(session.user.themePreference[0].isDarkMode));
+         dispatch(setUser(session.user));
+      } else if (status === 'unauthenticated') {
+         dispatch(clearUser());
+      }
+   }, [session, status, dispatch]);
 
    return null;
 }

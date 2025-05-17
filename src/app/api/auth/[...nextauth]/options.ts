@@ -31,7 +31,6 @@ export const authOptions: NextAuthOptions = {
             }
          },
       }),
-      
    ],
    callbacks: {
       async jwt({ token, user }) {
@@ -42,6 +41,7 @@ export const authOptions: NextAuthOptions = {
             token.about = user.about;
             token.profilePic = user.profilePic;
             token.socialLinks = user.socialLinks;
+            token.themePreference = user.themePreference;
          }
          return token;
       },
@@ -54,6 +54,7 @@ export const authOptions: NextAuthOptions = {
             session.user.about = token.about;
             session.user.profilePic = token.profilePic;
             session.user.socialLinks = token.socialLinks;
+            session.user.themePreference = token.themePreference;
          }
          return session;
       },

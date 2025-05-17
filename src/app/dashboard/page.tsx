@@ -3,6 +3,7 @@ import { useSession } from 'next-auth/react';
 import React, { useEffect, useState } from 'react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
+import { setUser as setUserAction } from '@/lib/features/userSlice';
 import {
    Form,
    FormControl,
@@ -36,9 +37,11 @@ import {
    ResizablePanel,
    ResizablePanelGroup,
 } from '@/components/ui/resizable';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 const page = () => {
+   const dispatch = useDispatch();
+
    const [user, setUser] = useState({
       fullname: '',
       username: '',
@@ -111,10 +114,10 @@ const page = () => {
             about: data?.about,
             socialLinks: data.socialLinks,
          });
-         updateFields(result.data.data);
-         setUser(result.data.data);
-         console.log(result.data);
          if (result.data.success) {
+            updateFields(result.data.data);
+            setUser(result.data.data);
+            dispatch(setUserAction(result.data.data));
             toast({
                title: 'Success',
                description: result.data.message,
@@ -183,8 +186,8 @@ const page = () => {
                title: 'Profile updated successfully',
                description: 'Your profile has been updated successfully.',
             });
-            console.log('got data: ', result);
             setUser(result.data.data);
+            dispatch(setUserAction(result.data.data));
          }
 
          console.log(result.data);
@@ -218,8 +221,6 @@ const page = () => {
          document.documentElement.classList.remove('dark');
       }
    }, []);
-
-   console.log('state: ', state);
 
    return (
       <ResizablePanelGroup direction='horizontal'>

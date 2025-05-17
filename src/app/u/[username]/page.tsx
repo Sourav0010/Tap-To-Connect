@@ -29,7 +29,6 @@ const page = () => {
       try {
          const response = await axios.post('/api/get-user', { username });
          setUser(response.data.data);
-         console.log(response.data.data);
       } catch (error) {
          throw error;
       } finally {

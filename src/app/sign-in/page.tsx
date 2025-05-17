@@ -34,7 +34,6 @@ const page = () => {
 
    async function onSubmit(data: any) {
       setSubmitting(true);
-      console.log(data);
       const response = await signIn('credentials', {
          email: data.email,
          password: data.password,
@@ -51,7 +50,6 @@ const page = () => {
             title: 'Signed in',
             description: 'You have been signed in',
          });
-         console.log(response);
          if (response?.url) router.push('/dashboard');
       }
       setSubmitting(false);

@@ -4,8 +4,7 @@ import User from '@/model/User.model';
 export async function POST(request: Request) {
    await dbConnect();
 
-   const { fullname, username, about, socialLinks, profilePic } =
-      await request.json();
+   const { username, themePreference } = await request.json();
 
    try {
       let user = await User.findOne({ username });
@@ -20,34 +19,19 @@ export async function POST(request: Request) {
          );
       }
 
-      if (user.about != about) {
-         user.about = about;
-      }
-
-      if (user.profilePic != profilePic) {
-         user.profilePic = profilePic;
-      }
-
-      if (!user?.fullname || user?.fullname != fullname) {
-         user.fullname = fullname;
-      }
-
-      await user.save();
-
       user = await User.findOneAndUpdate(
          {
             username,
          },
          {
             $set: {
-               socialLinks,
+               themePreference,
             },
          },
          {
             new: true,
          }
       );
-
 
       return Response.json(
          {

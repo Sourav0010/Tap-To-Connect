@@ -13,7 +13,6 @@ const themeSlice = createSlice({
          state.colorVariant = action.payload;
       },
       toggleDarkMode: (state, action) => {
-         console.log(action.payload);
          state.isDarkMode = action.payload;
       },
    },

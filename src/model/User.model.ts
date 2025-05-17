@@ -1,7 +1,7 @@
 import mongoose, { Document, Schema } from 'mongoose';
 
 export interface User extends Document {
-   fullname: string,
+   fullname: string;
    username: string;
    email: string;
    password: string;
@@ -10,10 +10,16 @@ export interface User extends Document {
    isVerified: boolean;
    otp: string;
    socialLinks: [{ value: string; social: string }];
+   themePreference: [
+      {
+         colorVariant: string;
+         isDarkMode: boolean;
+      },
+   ];
 }
 
 const userSchema = new Schema<User>({
-   fullname:{
+   fullname: {
       type: String,
       default: '',
    },
@@ -58,6 +64,12 @@ const userSchema = new Schema<User>({
       {
          value: String,
          social: String,
+      },
+   ],
+   themePreference: [
+      {
+         colorVariant: String,
+         isDarkMode: Boolean,
       },
    ],
 });

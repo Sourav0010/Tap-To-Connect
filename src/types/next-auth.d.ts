@@ -10,6 +10,12 @@ declare module 'next-auth' {
          about?: string;
          profilePic?: string;
          socialLinks?: [{ value: string; social: string }];
+         themePreference: [
+            {
+               colorVariant: string;
+               isDarkMode: boolean;
+            },
+         ];
       } & DefaultSession['user'];
    }
 
@@ -20,6 +26,12 @@ declare module 'next-auth' {
       about?: string;
       profilePic?: string;
       socialLinks?: [{ value: string; social: string }];
+      themePreference: [
+         {
+            colorVariant: string;
+            isDarkMode: boolean;
+         },
+      ];
    }
 }
 
@@ -31,5 +43,11 @@ declare module 'next-auth/jwt' {
       about?: string;
       profilePic?: string;
       socialLinks?: [{ value: string; social: string }];
+      themePreference: [
+         {
+            colorVariant: string;
+            isDarkMode: boolean;
+         },
+      ];
    }
 }
