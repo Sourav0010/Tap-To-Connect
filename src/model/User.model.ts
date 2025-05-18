@@ -16,6 +16,12 @@ export interface User extends Document {
          isDarkMode: boolean;
       },
    ];
+   shoppingCard: [
+      {
+         productLink: string;
+         productName: string;
+      },
+   ];
 }
 
 const userSchema = new Schema<User>({
@@ -66,12 +72,29 @@ const userSchema = new Schema<User>({
          social: String,
       },
    ],
-   themePreference: [
-      {
-         colorVariant: String,
-         isDarkMode: Boolean,
-      },
-   ],
+   themePreference: {
+      type: [
+         {
+            colorVariant: String,
+            isDarkMode: Boolean,
+         },
+      ],
+      default: [
+         {
+            colorVariant: 'default',
+            isDarkMode: false,
+         },
+      ],
+   },
+   shoppingCard: {
+      type: [
+         {
+            productLink: String,
+            productName: String,
+         },
+      ],
+      default: [],
+   },
 });
 
 const User =

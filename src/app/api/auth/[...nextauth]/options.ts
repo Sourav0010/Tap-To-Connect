@@ -42,6 +42,7 @@ export const authOptions: NextAuthOptions = {
             token.profilePic = user.profilePic;
             token.socialLinks = user.socialLinks;
             token.themePreference = user.themePreference;
+            token.shoppingCard = user.shoppingCard;
          }
          return token;
       },
@@ -55,6 +56,7 @@ export const authOptions: NextAuthOptions = {
             session.user.profilePic = token.profilePic;
             session.user.socialLinks = token.socialLinks;
             session.user.themePreference = token.themePreference;
+            session.user.shoppingCard = token.shoppingCard;
          }
          return session;
       },

@@ -16,6 +16,12 @@ declare module 'next-auth' {
                isDarkMode: boolean;
             },
          ];
+         shoppingCard: [
+            {
+               productLink: string;
+               productName: string;
+            },
+         ];
       } & DefaultSession['user'];
    }
 
@@ -30,6 +36,12 @@ declare module 'next-auth' {
          {
             colorVariant: string;
             isDarkMode: boolean;
+         },
+      ];
+      shoppingCard: [
+         {
+            productLink: string;
+            productName: string;
          },
       ];
    }
@@ -47,6 +59,12 @@ declare module 'next-auth/jwt' {
          {
             colorVariant: string;
             isDarkMode: boolean;
+         },
+      ];
+      shoppingCard: [
+         {
+            productLink: string;
+            productName: string;
          },
       ];
    }

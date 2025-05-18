@@ -4,7 +4,17 @@ import User from '@/model/User.model';
 export async function POST(request: Request) {
 	await dbConnect();
 
-	const { username, themePreference } = await request.json();
+	const { username, shoppingCard } = await request.json();
+
+	console.log(username, shoppingCard);
+
+	return Response.json(
+		{
+			success: true,
+			message: 'Shopping list updated successfully',
+		},
+		{ status: 200 }
+	);
 
 	try {
 		let user = await User.findOne({ username });
@@ -25,7 +35,7 @@ export async function POST(request: Request) {
 			},
 			{
 				$set: {
-					themePreference,
+					shoppingCard,
 				},
 			},
 			{
@@ -36,7 +46,7 @@ export async function POST(request: Request) {
 		return Response.json(
 			{
 				success: true,
-				message: 'Theme preference updated successfully',
+				message: 'Shopping list updated successfully',
 				data: user,
 			},
 			{ status: 200 }
@@ -45,7 +55,7 @@ export async function POST(request: Request) {
 		return Response.json(
 			{
 				success: false,
-				message: error.message || 'Error while updating theme preference',
+				message: error.message || 'Error while updating shopping list',
 			},
 			{ status: 500 }
 		);
