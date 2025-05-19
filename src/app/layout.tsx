@@ -24,7 +24,7 @@ export default function RootLayout({
 			<AuthProvider>
 				<StoreProvider>
 					<body>
-						<Hydrator />
+						{/* <Hydrator /> */}
 						<NavBar />
 						{children}
 						<SpeedInsights />

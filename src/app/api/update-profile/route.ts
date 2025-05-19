@@ -4,7 +4,7 @@ import User from '@/model/User.model';
 export async function POST(request: Request) {
    await dbConnect();
 
-   const { fullname, username, about, socialLinks, profilePic } =
+   const { fullname, username, about, profilePic } =
       await request.json();
 
    try {
@@ -33,20 +33,6 @@ export async function POST(request: Request) {
       }
 
       await user.save();
-
-      user = await User.findOneAndUpdate(
-         {
-            username,
-         },
-         {
-            $set: {
-               socialLinks,
-            },
-         },
-         {
-            new: true,
-         }
-      );
 
 
       return Response.json(

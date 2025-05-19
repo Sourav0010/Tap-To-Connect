@@ -1,25 +1,25 @@
 import { v2 as cloudinary } from 'cloudinary';
 
 cloudinary.config({
-   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-   api_key: process.env.CLOUDINARY_API_KEY,
-   api_secret: process.env.CLOUDINARY_API_SECRET,
+	cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+	api_key: process.env.CLOUDINARY_API_KEY,
+	api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
 export async function DELETE(req: Request) {
-   const { public_id } = await req.json();
+	const { public_id } = await req.json();
 
-   try {
-      await cloudinary.uploader.destroy(public_id);
+	try {
+		await cloudinary.uploader.destroy(public_id, { resource_type: 'image' });
 
-      return Response.json(
-         { message: 'Image deleted successfully', success: true },
-         { status: 200 }
-      );
-   } catch (error: any) {
-      return Response.json(
-         { message: error.message || 'Failed to delete image', success: false },
-         { status: 500 }
-      );
-   }
+		return Response.json(
+			{ message: 'Image deleted successfully', success: true },
+			{ status: 200 }
+		);
+	} catch (error: any) {
+		return Response.json(
+			{ message: error.message || 'Failed to delete image', success: false },
+			{ status: 500 }
+		);
+	}
 }

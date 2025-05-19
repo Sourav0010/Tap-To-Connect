@@ -51,10 +51,10 @@ export function Hydrator() {
    useEffect(() => {
       if (status === 'authenticated' && session?.user) {
          console.log('session', session);
-         dispatch(
-            setColorVariant(session.user.themePreference[0].colorVariant)
-         );
-         dispatch(toggleDarkMode(session.user.themePreference[0].isDarkMode));
+         // dispatch(
+         //    setColorVariant(session.user.themePreference[0].colorVariant)
+         // );
+         // dispatch(toggleDarkMode(session.user.themePreference[0].isDarkMode));
          dispatch(setUser(session.user));
       } else if (status === 'unauthenticated') {
          dispatch(clearUser());

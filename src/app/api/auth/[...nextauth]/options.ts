@@ -10,19 +10,36 @@ export const authOptions: NextAuthOptions = {
 			name: 'Credentials',
 			id: 'credentials',
 			credentials: {
-				email: { label: 'Email', type: 'email' },
-				password: { label: 'Password', type: 'password' },
+				email: {
+					label: 'Email',
+					type: 'email',
+					placeholder: 'Enter Your Eamil: ',
+				},
+				password: {
+					label: 'Password',
+					type: 'password',
+					placeholder: 'Enter Your Password: ',
+				},
 			},
 			async authorize(credentials: any): Promise<any> {
+				// Connecting to the database
 				await dbConnect();
 				try {
+					// Check if the user exists
 					const user = await User.findOne({ email: credentials.email });
+					// If user not found, throw an error
 					if (!user) throw new Error('No user found');
-					if (user.isVerified === false) throw new Error('User not verified');
+					// If user is not verified, throw an error
+					if (user.isVerified === false)
+						throw new Error(
+							'User not verified, Please verify your email before you login'
+						);
+					// If user is found, check if the password is correct
 					const isPasswordCorrect = await bcrypt.compare(
 						credentials.password,
 						user.password
 					);
+					// If password is incorrect, throw an error
 					if (!isPasswordCorrect) throw new Error('Password incorrect');
 					return user;
 				} catch (error: any) {
@@ -34,7 +51,7 @@ export const authOptions: NextAuthOptions = {
 	callbacks: {
 		async jwt({ token, user }) {
 			if (user) {
-				token._id = user._id?.toString();
+				token._id = user._id;
 				token.isVerified = user.isVerified;
 				token.username = user.username;
 				token.about = user.about;

@@ -11,50 +11,55 @@ export interface User extends Document {
 	otp: string;
 }
 
-const userSchema = new Schema<User>({
-	fullname: {
-		type: String,
-		default: '',
+const userSchema = new Schema<User>(
+	{
+		fullname: {
+			type: String,
+			default: '',
+		},
+		username: {
+			type: String,
+			required: true,
+			unique: true,
+			index: true,
+			trim: true,
+			min: [3, 'Username is too short'],
+			lowercase: true,
+		},
+		email: {
+			type: String,
+			required: true,
+			unique: true,
+			index: true,
+			trim: true,
+			lowercase: true,
+		},
+		password: {
+			type: String,
+			required: true,
+			min: [8, 'Password is too short'],
+		},
+		about: {
+			type: String,
+			default: '',
+		},
+		profilePic: {
+			type: String,
+			default: '',
+		},
+		isVerified: {
+			type: Boolean,
+			default: false,
+		},
+		otp: {
+			type: String,
+			required: true,
+		},
 	},
-	username: {
-		type: String,
-		required: true,
-		unique: true,
-		index: true,
-		trim: true,
-		min: [3, 'Username is too short'],
-		lowercase: true,
-	},
-	email: {
-		type: String,
-		required: true,
-		unique: true,
-		index: true,
-		trim: true,
-		lowercase: true,
-	},
-	password: {
-		type: String,
-		required: true,
-		min: [8, 'Password is too short'],
-	},
-	about: {
-		type: String,
-		default: '',
-	},
-	profilePic: {
-		type: String,
-		default: '',
-	},
-	isVerified: {
-		type: Boolean,
-		default: false,
-	},
-	otp: {
-		type: String,
-		required: true,
-	},
-});
+	{
+		timestamps: true,
+	}
+);
 
 const User =
 	(mongoose.models.User as mongoose.Model<User>) ||
