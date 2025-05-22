@@ -7,6 +7,7 @@ const dbConnect = async (): Promise<void> => {
       console.log('Using existing connection');
       return;
    }
+   //
 
    try {
       const db = await mongoose.connect(process.env.MONOGO_URI!, {});
